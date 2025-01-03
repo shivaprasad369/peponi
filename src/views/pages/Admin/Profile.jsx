@@ -56,7 +56,7 @@ export default function Profile() {
     }
     
   return (
-    <div className={`lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2d3442] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}    >
+    <div className={`lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2a2f3a] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}    >
         <ToastContainer autoClose={1000}/>
       <div className='w-full h-[100%]  shadow-md p-4'>
         <h1 className='text-2xl font-bold'>Admin Profile</h1>
