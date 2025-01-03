@@ -190,7 +190,7 @@ export default function Blogs() {
             {...register('image',{required:true})} />
             {errors.image && <span className='text-red-500'>Image is required</span>}
             <div className='flex justify-between pt-1 border-t-[1px] border-gray-300 mt-5 w-full items-center'> 
-                <button type='reset' className={`capitalize font-semibold border-[1px] tracking-wider  py-2 px-4 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>clear</button>
+                <button type='reset' onClick={()=>{reset(),setValues(''),setIsEdit(false),setValue('shortdescription','')}} className={`capitalize font-semibold border-[1px] tracking-wider  py-2 px-4 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>clear</button>
             {!isEdit && <button type='submit' className={`bg-black text-white p-2 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>Add Blog</button>}
             {isEdit && <button type='submit' className={`bg-black text-white p-2 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>Update Blog</button>}
             </div>

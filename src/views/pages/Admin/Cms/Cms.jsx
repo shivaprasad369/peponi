@@ -76,7 +76,7 @@ export default function CMs() {
               }
             </div>
             <div className={`w-[100%] mt-[2rem] border-t-[1px] ${theme === 'dark' ? 'border-gray-300' : 'border-gray-300'} pt-[1rem] flex items-center justify-between`}>
-              <button type='reset' className={`capitalize font-semibold border-[1px] tracking-wider border-gray-300 py-2 px-4 rounded-md ${theme === 'dark' ? 'bg-[#2d3442] text-white' : 'bg-gray-200 text-black'}`}>clear</button>
+              <button type='reset' onClick={()=>{setValue(''),setType('')}} className={`capitalize font-semibold border-[1px] tracking-wider border-gray-300 py-2 px-4 rounded-md ${theme === 'dark' ? 'bg-[#2d3442] text-white' : 'bg-gray-200 text-black'}`}>clear</button>
               <button className={`bg-blue-500 capitalize text-white font-semibold border-[1px] tracking-wider border-gray-300 py-2 px-4 rounded-md ${theme === 'dark' ? '  text-white' : 'bg-blue-500 text-white'}`}>update</button>
             </div>
           </form>
