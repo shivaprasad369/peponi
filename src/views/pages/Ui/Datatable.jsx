@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BiHide } from "react-icons/bi";
-import { FaExpandArrowsAlt, FaEye, FaRegEdit, FaTrash } from "react-icons/fa";
+import { FaExpandArrowsAlt, FaEye, FaRegEdit, FaSpinner, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit }) => {
+const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit,deleting=false }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage,setRowsPerPage] = useState(5);
@@ -157,7 +157,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                       onClick={() => onDelete(row.id)}
                       className="p-1 text-red-500 hover:text-red-700"
                     >
-                      <FaTrash />
+                     <FaTrash />
                     </button>
                     {view && <button
                       onClick={() => onView(row)}

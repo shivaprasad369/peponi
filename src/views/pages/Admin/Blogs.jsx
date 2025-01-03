@@ -17,6 +17,7 @@ export default function Blogs() {
   const [view,setView] = useState(false)
   const [viewData,setViewData] = useState('')
   const theme=useSelector((state)=>state.theme)
+  const [deleting,setDeleting]=useState(false)
   const onSubmit = async (data) => {
 
     const formData = new FormData()
@@ -51,14 +52,17 @@ export default function Blogs() {
         }
   }
   const handleDelete = async (id) => {
+    setDeleting(true)
     try {
         const response = await axios.delete(`${import.meta.env.VITE_API_URL}/blog/${id}`)
         if(response.status === 200){
             toast.success('Blog deleted successfully')
             queryClient.invalidateQueries({ queryKey: ['blogs'] })
+            setDeleting(false)
         }
     } catch (error) {
         toast.error(error.response.data.message)
+        setDeleting(false)
     }
   }
   const handleEditSubmit = async (data) => {
@@ -110,19 +114,29 @@ export default function Blogs() {
     setImage(()=>getValues('image'))
    
   },[getValues])
-  const { data: dataBlog, isLoading } = useQuery({
+  const { data: dataBlog, isLoading, isError } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/blog`);
-      if(response.status === 200){
-        return response.data.result;
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/blog`);
+        if (response.status === 200) {
+          return response.data.result;
+        } else {
+          throw new Error("Unexpected response status");
+        }
+      } catch (error) {
+        const errorMessage = error.response?.data?.message || "An error occurred";
+        toast.error(errorMessage);
+        throw error;
       }
-      return []
-    }
+    },
+    refetchOnWindowFocus: false, 
+    
+    retry: 1,
   });
-
+  
     useEffect(() => {
-    if (dataBlog) setBlogs(dataBlog);
+    if (dataBlog?.length > 0) setBlogs(dataBlog);
   }, [dataBlog]);
   const handleView = (id) => {
    setView(true)
@@ -198,16 +212,19 @@ export default function Blogs() {
     
         </div>
         </div>
-        <DataTable
+        {dataBlog ?<DataTable
         data={blogs}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         onDelete={handleDelete}
+        deleting={deleting}
         expand={false}
         onView={handleView}
         view={true}
         onEdit={handleEdit}
-      />
+      /> : <div className='w-[100%] h-[100%] flex items-center justify-center'>
+        <h1 className='text-2xl font-bold'>No Blogs Found</h1>
+      </div>}
   
      {view && <View onClose={handleClose}  >
         <div className='w-[70%] h-[95%] py-[3rem] text-black bg-white p-[2rem] flex flex-col gap-5 items-center justify-center   rounded-md overflow-y-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
