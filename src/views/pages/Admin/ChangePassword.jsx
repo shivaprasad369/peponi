@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 export default function ChangePassword() {
     const { register, handleSubmit,reset, watch,formState: { errors } } = useForm();
+    const theme=useSelector((state)=>state.theme)
     const newPassword = watch('newPassword', ''); 
     const id = Cookies.get('Aid');
     const onSubmit = async (data) => {
@@ -26,9 +28,9 @@ export default function ChangePassword() {
     };
   
   return (
-    <div className='w-full h-full flex bg-slate-200 px-2  justify-start'>
+    <div className={`w-full h-full flex ${theme === 'dark' ? 'bg-[#20252e] text-white' : 'bg-slate-200 px-2  justify-start'}`}>
         <ToastContainer autoClose={1000} />
-        <div className='w-[100%] lg:w-[45%] h-fit bg-white flex flex-col gap-4 mt-[3rem] py-[2rem] px-[1rem]  items-start justify-center'>
+        <div className={`w-[100%] lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2a2f3a] text-white' : 'bg-white'} flex flex-col gap-4 mt-[3rem] py-[2rem] px-[1rem]  items-start justify-center`}>
             <h1 className='text-2xl font-bold'>Change Password</h1>
             <form className='flex w-[100%] flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
       
@@ -39,7 +41,7 @@ export default function ChangePassword() {
           type="password"
           id="old-password"
           {...register('oldPassword', { required: 'Old password is required' })}
-          className='w-[100%] h-[2.3rem] rounded-md border-[1px] outline-none border-gray-300 p-2'
+          className={`w-[100%] h-[2.3rem] rounded-md border-[1px] outline-none ${theme === 'dark' ? 'border-gray-500 bg-[#20252e] text-white' : 'border-gray-300 bg-gray-200 text-gray-800'} p-2`}
         />
         {errors.oldPassword && <span className='text-red-500'>{errors.oldPassword.message}</span>}
       </div>
@@ -57,7 +59,7 @@ export default function ChangePassword() {
               message: 'Password must be at least 6 characters long'
             }
           })}
-          className='w-[100%] h-[2.3rem] rounded-md border-[1px] outline-none border-gray-300 p-2'
+          className={`w-[100%] h-[2.3rem] rounded-md border-[1px] outline-none ${theme === 'dark' ? 'border-gray-500 bg-[#20252e] text-white' : 'border-gray-300 bg-gray-200 text-gray-800'} p-2`}
         />
         {errors.newPassword && <span className='text-red-500'>{errors.newPassword.message}</span>}
       </div>
@@ -73,7 +75,7 @@ export default function ChangePassword() {
             validate: value =>
               value === newPassword || 'Passwords do not match'
           })}
-          className='w-[100%] h-[2.3rem] rounded-md border-[1px] outline-none border-gray-300 p-2'
+          className={`w-[100%] h-[2.3rem] rounded-md border-[1px] outline-none ${theme === 'dark' ? 'border-gray-500 bg-[#20252e] text-white' : 'border-gray-300 bg-gray-200 text-gray-800'} p-2`}
         />
         {errors.confirmPassword && <span className='text-red-500'>{errors.confirmPassword.message}</span>}
       </div>

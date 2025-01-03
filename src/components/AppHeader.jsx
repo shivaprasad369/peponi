@@ -93,7 +93,7 @@ const AppHeader = () => {
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('light')}
+                onClick={() => {setColorMode('light'),dispatch({type:'set',theme:'light'})}}
               >
                 <CIcon className="me-2" icon={cilSun} size="lg" /> Light
               </CDropdownItem>
@@ -102,7 +102,7 @@ const AppHeader = () => {
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('dark')}
+                onClick={() => {setColorMode('dark'),dispatch({type:'set',theme:'dark'})}}
               >
                 <CIcon className="me-2" icon={cilMoon} size="lg" /> Dark
               </CDropdownItem>
@@ -111,7 +111,7 @@ const AppHeader = () => {
                 className="d-flex align-items-center"
                 as="button"
                 type="button"
-                onClick={() => setColorMode('auto')}
+                onClick={() => {setColorMode('auto'),dispatch({type:'set',theme:'auto'})}}
               >
                 <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
               </CDropdownItem>

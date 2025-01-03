@@ -42,7 +42,8 @@ const WidgetsDropdown = (props) => {
   }, [widgetChartRef1, widgetChartRef2])
 
   return (
-    <div className='w-[100%] grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-4'>
+    <>
+    <div className='w-[100%] mb-10 grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-4'>
       {[{
         color:`bg-[#167c81]`,
         title:'Blogs',
@@ -86,7 +87,7 @@ const WidgetsDropdown = (props) => {
   disc:'Change password'
 }
       ].map((data,index)=>
-      <div className={`w-[100%] h-[100%] shadow-md rounded-md px-[0.6rem] py-[2rem] ${data.color} `}>
+      <div key={index} className={`w-[100%] h-[100%] shadow-md rounded-md px-[0.6rem] py-[2rem] ${data.color} `}>
           <div className={  `flex items-center justify-between gap-2  p-2 rounded-md`}>
             <div className="w-[30%] h-[100%] border-r-[1px] border-gray-200 pr-2 items-center justify-center flex ">
               {/* <CIcon icon= /> */}
@@ -101,7 +102,100 @@ const WidgetsDropdown = (props) => {
           </div>
       </div>
       )}
-      {/* <CCol sm={6} xl={4} xxl={3}>
+     
+    </div>
+    <CRow className={props.className} xs={{ gutter: 4 }}>
+      <CCol sm={6} xl={4} xxl={3}>
+        <CWidgetStatsA
+          color="primary"
+          value={
+            <>
+              26K{' '}
+              <span className="fs-6 fw-normal">
+                (-12.4% <CIcon icon={cilArrowBottom} />)
+              </span>
+            </>
+          }
+          title="Users"
+          action={
+            <CDropdown alignment="end">
+              <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
+                <CIcon icon={cilOptions} />
+              </CDropdownToggle>
+              <CDropdownMenu>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Another action</CDropdownItem>
+                <CDropdownItem>Something else here...</CDropdownItem>
+                <CDropdownItem disabled>Disabled action</CDropdownItem>
+              </CDropdownMenu>
+            </CDropdown>
+          }
+          chart={
+            <CChartLine
+              ref={widgetChartRef1}
+              className="mt-3 mx-3"
+              style={{ height: '70px' }}
+              data={{
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                  {
+                    label: 'My First dataset',
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgba(255,255,255,.55)',
+                    pointBackgroundColor: getStyle('--cui-primary'),
+                    data: [65, 59, 84, 84, 51, 55, 40],
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                maintainAspectRatio: false,
+                scales: {
+                  x: {
+                    border: {
+                      display: false,
+                    },
+                    grid: {
+                      display: false,
+                      drawBorder: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    min: 30,
+                    max: 89,
+                    display: false,
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      display: false,
+                    },
+                  },
+                },
+                elements: {
+                  line: {
+                    borderWidth: 1,
+                    tension: 0.4,
+                  },
+                  point: {
+                    radius: 4,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                  },
+                },
+              }}
+            />
+          }
+        />
+      </CCol>
+      <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="info"
           value={
@@ -355,9 +449,9 @@ const WidgetsDropdown = (props) => {
             />
           }
         />
-      </CCol> */}
-     
-    </div>
+      </CCol>
+    </CRow>
+    </>
   )
 }
 

@@ -5,6 +5,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useQuery,useQueryClient } from '@tanstack/react-query'
 import { toast, ToastContainer } from 'react-toastify'
+import { useSelector } from 'react-redux'
 
 const fetchAdminData = async (Aid) => {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/admin/${Aid}`);
@@ -18,6 +19,7 @@ export default function Profile() {
         queryKey: ['admin', Aid],
         queryFn: () => fetchAdminData(Aid),
     });
+    const theme=useSelector((state)=>state.theme)
 
     useEffect(() => {
         if (data) {
@@ -26,14 +28,14 @@ export default function Profile() {
     }, [data]);
 
     if (isLoading){
-        return <div class="animate-pulse bg-white  xl:w-1/2 " >
-        <div class="h-10 bg-gray-300 rounded w-2/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+        return <div className="animate-pulse   xl:w-1/2 " >
+        <div className="h-10 bg-gray-300 rounded w-2/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
     <div className="w-[100%] flex items-end justify-end">
-    <div class="h-10 bg-gray-300 rounded w-1/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-1/4 mb-2"></div>
     </div>
   </div>
     }
@@ -52,8 +54,9 @@ export default function Profile() {
         }
         
     }
+    
   return (
-    <div className='lg:w-[45%] h-fit bg-slate-100 flex flex-col gap-10 items-center justify-center'    >
+    <div className={`lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2d3442] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}    >
         <ToastContainer autoClose={1000}/>
       <div className='w-full h-[100%]  shadow-md p-4'>
         <h1 className='text-2xl font-bold'>Admin Profile</h1>
@@ -64,7 +67,11 @@ export default function Profile() {
                 <div className='w-[10%] bg-black h-full   text-white  flex items-center rounded-l justify-center p-1'>
                 <FaUserAlt />
                 </div>
-            <input type="text" placeholder='Enter your name' onChange={(e)=>setUser({...user,username:e.target.value})} defaultValue={user?.username} className='w-[90%] p-1 h-[100%] outline-none border border-gray-300 ' />
+            <input type="text" placeholder='Enter your name' 
+            onChange={(e)=>setUser({...user,username:e.target.value})}
+             defaultValue={user?.username} 
+             className={`w-[90%] p-1 h-[100%] outline-none border
+              ${theme === 'dark' ? 'border-gray-500 bg-[#272c36] text-white' : 'border-gray-300 bg-white0 text-gray-800'} `} />
                 
                 </div>
             </div>
@@ -74,7 +81,10 @@ export default function Profile() {
                 <div className='w-[10%] bg-black h-full   text-white  flex items-center rounded-l justify-center p-1'>
                 <FaEnvelope />
                 </div>
-            <input type="text" placeholder='Enter your email' onChange={(e)=>setUser({...user,email:e.target.value})} defaultValue={user?.email} className='w-[90%] p-1 h-[100%] outline-none border border-gray-300 ' />
+            <input type="text" placeholder='Enter your email'
+             onChange={(e)=>setUser({...user,email:e.target.value})} defaultValue={user?.email} 
+             className={`w-[90%] p-1 h-[100%] outline-none border
+              ${theme === 'dark' ? 'border-gray-500 bg-[#272c36] text-white' : 'border-gray-300 bg-white0 text-gray-800'} `} />
                 
                 </div>
             </div>
@@ -84,7 +94,10 @@ export default function Profile() {
                 <div className='w-[10%] bg-black h-full   text-white  flex items-center rounded-l justify-center p-1'>
                 <FaPhone />
                 </div>
-            <input type="text" placeholder='Enter your phone' onChange={(e)=>setUser({...user,phone:e.target.value})} defaultValue={user?.phone} className='w-[90%] p-1 h-[100%] outline-none border border-gray-300 ' />
+            <input type="text" placeholder='Enter your phone'
+             onChange={(e)=>setUser({...user,phone:e.target.value})} defaultValue={user?.phone} 
+             className={`w-[90%] p-1 h-[100%] outline-none border
+              ${theme === 'dark' ? 'border-gray-500 bg-[#272c36] text-white' : 'border-gray-300 bg-white text-gray-800'} `} />
                 
                 </div>
             </div>

@@ -5,14 +5,16 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DataTable from '../../Ui/Datatable';
 import { TbRuler } from 'react-icons/tb';
-
+import { useDispatch, useSelector } from 'react-redux';
 export default function Faq() {
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(null); // Default null instead of empty string
   const [users, setUsers] = useState([]);
+  const dispatch = useDispatch()
+const theme=useSelector((state)=>state.theme)
 
-  // Handle form submission
+console.log(theme)
   const onSubmit = async (data) => {
     try {
       if (isEdit) {
@@ -83,28 +85,29 @@ export default function Faq() {
   };
 
   return (
-    <div className='w-full h-[100%]  bg-slate-100 flex flex-col gap-10 items-center justify-center'>
+   
+    <div className={`w-full h-[100%] ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}>
       <ToastContainer autoClose={1000} />
-      <div className='w-full h-[100%] rounded-lg shadow-lg p-4'>
-        <h1 className='text-2xl font-bold text-gray-800 mb-4'>Manage FAQs</h1>
+      <div className={`w-full h-[100%] rounded-lg shadow-lg p-4 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}>
+        <h1 className='text-2xl font-bold mb-4'>Manage FAQs</h1>
         {(errors.quetion || errors.answer) && <p className='text-red-500'>Question and Answer is required</p>}
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col bg-white md:p-4 max-md:p-2 rounded '>
+        <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-col ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'} md:p-4 max-md:p-2 rounded '`}>
           <label htmlFor="question" className='font-bold'>FAQ Question *</label>
           <input
             type="text"
             placeholder="Enter question"
             {...register("question", { required: TbRuler})}
-            className={`w-full p-2 border ${errors.question ? 'border-red-500' : 'border-gray-300'} outline-none rounded mb-2`}
+            className={`w-full p-2 border ${errors.question ? 'border-red-500' : 'border-gray-300'} outline-none rounded mb-2 ${theme === 'dark' ? 'bg-[#272b38] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`}
           />
           <label htmlFor="answer" className='font-bold'>FAQ Answer *</label>
           <textarea
             placeholder="Enter answer"
             {...register("answer", { required: true})}
             rows="4"
-            className={`w-full p-2 border ${errors.answer ? 'border-red-500' : 'border-gray-300'} outline-none rounded mb-4`}
+            className={`w-full p-2 border ${errors.answer ? 'border-red-500' : 'border-gray-300'} outline-none rounded mb-4 ${theme === 'dark' ? 'bg-[#272b38] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`}
           />
-          <div className='flex justify-between'>
-            <button type="reset" onClick={() => reset()} className='px-4 py-2 bg-gray-200 text-black rounded'>Clear</button>
+          <div className='flex  justify-between'>
+            <button type="reset" onClick={() => reset()} className={`px-4 py-2 border-1 border-gray-300 rounded ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>Clear</button>
             <button type="submit" className='px-4 py-2 bg-blue-500 text-white rounded'>
               {isEdit ? 'Update FAQ' : 'Add FAQ'}
             </button>
@@ -119,5 +122,6 @@ export default function Faq() {
         onAnswerUpdate={handleUpdateAnswer} // Pass callback for answer updates
       />
     </div>
+    
   );
 }

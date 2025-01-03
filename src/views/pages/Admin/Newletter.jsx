@@ -5,11 +5,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useQuery,useQueryClient } from '@tanstack/react-query';
 import * as XLSX from "xlsx";
 import { CSpinner } from '@coreui/react';
+import { useSelector } from 'react-redux';
 export default function Newletter() {
         const [users,setUsers]=useState([])
     const apiUrl=import.meta.env.VITE_API_URL;
     const token=localStorage.getItem('adminToken')
     const queryClient=useQueryClient()
+    const theme=useSelector((state)=>state.theme)
     const headers= {
         'Authorization': `Bearer ${token}`
     }
@@ -56,19 +58,19 @@ export default function Newletter() {
         document.body.removeChild(link);
       };
       if(isLoading){
-        return <div class="animate-pulse">
-       <div class="h-10 bg-gray-300 rounded w-1/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
-    <div class="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+        return <div className="animate-pulse">
+       <div className="h-10 bg-gray-300 rounded w-1/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
+    <div className="h-10 bg-gray-300 rounded w-4/4 mb-2"></div>
    
 
   </div>
       }
   return (
-    <div className='w-full h-full flex bg-slate-200 px-2  justify-start'>
+    <div className={`w-full h-full flex ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} px-2  justify-start`}>
         <ToastContainer autoClose={1000}/>
-      <div className='w-[100%] h-fit bg-white flex flex-col gap-4 mt-[3rem] py-[2rem] px-[1rem]  items-start justify-center'>
+      <div className={`w-[100%] h-fit ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-4 mt-[3rem] py-[2rem] px-[1rem]  items-start justify-center`}>
         <h1 className='text-2xl font-bold'>Newsletter Subscribers</h1>
         <DataTable
         data={users}

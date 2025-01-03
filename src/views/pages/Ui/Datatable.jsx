@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BiHide } from "react-icons/bi";
 import { FaExpandArrowsAlt, FaEye, FaRegEdit, FaTrash } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(5);
+  const [rowsPerPage,setRowsPerPage] = useState(5);
   const [sortedData, setSortedData] = useState([]);
   const [sortOrder, setSortOrder] = useState({ field: "", order: "asc" });
   const [selectedRows, setSelectedRows] = useState([]);
   const [expandedRows, setExpandedRows] = useState([]);
-
+  const theme=useSelector((state)=>state.theme)
   useEffect(() => {
     setSortedData(data);
   }, [data]);
@@ -74,18 +75,27 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
   };
 
   return (
-    <div className="xl:p-4 max-xl:p-2   w-[100%] h-[100%] bg-white ">
+    <div className={`xl:p-4 max-xl:p-2   w-[100%] h-[100%] ${theme === 'dark' ? 'bg-[#2e3442] text-white' : 'bg-white text-gray-800 '} `}>
       {isEdit && <div onClick={()=>{window.location.reload()}} className="flex justify-end items-end mb-3">
-        <button className="bg-black text-white p-2 rounded-md">+ Add New</button>
+        <button className={`bg-black text-white p-2 rounded-md ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>+ Add New</button>
       </div>}
       {/* Search Bar */}
+      <div className="w-[100%] flex items-center justify-between">
+
       <input
         type="text"
         placeholder="Search..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 mb-4 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className={`w-[30%] p-2 mb-4 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${theme === 'dark' ? 'bg-[#272b38] text-white' : 'bg-white text-gray-800'}`}
       />
+      <select onChange={(e)=>setRowsPerPage(e.target.value)} className="w-[10%] p-2 mb-4 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value={5}>5</option>
+        <option value={10}>10</option>
+        <option value={20}>20</option>
+        <option value={50}>50</option>
+      </select>
+      </div>
 
      
       {selectedRows.length > 0 && (
@@ -100,7 +110,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
       <div className="overflow-x-auto ">
         <table className="w-full table-auto border-collapse border border-gray-200">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className={`${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>
               <th className="p-2 flex items-center justify-center  border-gray-200">
                 <input
                   type="checkbox"
@@ -112,7 +122,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                 <th
                   key={key}
                   onClick={() => handleSort(key)}
-                  className="p-2 border border-gray-200 capitalize cursor-pointer  hover:bg-gray-200 text-center"
+                  className={`p-2 border border-gray-200 capitalize cursor-pointer   text-center ${theme === 'dark' ? 'bg-[#212631] text-white hover:bg-gray-700 ' : 'bg-gray-200 text-black hover:bg-gray-300 '}`}
                 >
                   {key} {sortOrder?.field === key ? (sortOrder.order === "asc" ? "▲" : "▼") : ""}
                 </th>
@@ -123,7 +133,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
           <tbody>
             {currentRows.map((row, index) => (
               <React.Fragment key={index}>
-                <tr className="text-center hover:bg-gray-100">
+                <tr className={`text-center ${theme === 'dark' ? 'bg-[#292f3b] text-white hover:bg-gray-700 ' : 'bg-gray-100 text-black hover:bg-gray-200 '}`}>
                   <td className="p-2 border border-gray-200">
                     <input
                       type="checkbox"
@@ -136,7 +146,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                       {value?.length > 100 ? value.substring(0, 100) + '...' : value}
                     </td>
                   ))}
-                  <td className="p-2 border flex h-[100%] justify-center items-center border-gray-200">
+                  <td className="p-2 border flex justify-center items-center ">
                    {edit && <button
                       onClick={() => onEdit(row)}
                       className="mr-2 p-1 text-blue-500 hover:text-blue-700"
@@ -165,7 +175,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                 </tr>
                 {expandedRows.includes(row) && (
                   <tr>
-                    <td colSpan={Object.keys(data[0]).length + 2} className=" border-none bg-gray-50 ">
+                    <td colSpan={Object.keys(data[0]).length + 2} className={`" border-none ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'} `}>
                
                       <textarea
                         className="w-full p-2 border-none outline-none"
@@ -186,24 +196,35 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
       onClick={()=>onExport(data)}>Export</button>
       </div>
       }
-      <div className="flex justify-between items-center mt-4">
+      <div className="w-[100%] flex items-end justify-end gap-3">
+
+      <div className="flex  items-center gap-2 mt-4">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 border rounded shadow-sm bg-gray-100 hover:bg-gray-200 disabled:opacity-50"
+          className={`px-3 py-1 border rounded shadow-sm ${theme === 'dark' ? 'bg-[#212631] text-white hover:bg-gray-700 ' : 'bg-gray-200 text-black hover:bg-gray-300 '} disabled:opacity-50`}
         >
           Previous
         </button>
-        <span>
+        {/* <span>
           Page {currentPage} of {totalPages}
-        </span>
+        </span> */}
+        <div className="flex items-center justify-center gap-1">
+         {Array.from({ length: totalPages }, (_, i) => i + 1).map((item)=>(
+          <div key={item} onClick={()=>setCurrentPage(item)} className={`w-[2rem] h-[2rem] flex items-center justify-center cursor-pointer hover:bg-black
+           hover:text-white font-bold duration-300 border-[1px] ${currentPage === item ? 'bg-black text-white' : 'border-gray-300'} rounded-md`}>
+            {item}
+          </div>
+         ))}
+        </div>
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border rounded shadow-sm bg-gray-100 hover:bg-gray-200 disabled:opacity-50"
+          className={`px-3 py-1 border rounded shadow-sm ${theme === 'dark' ? 'bg-[#212631] text-white hover:bg-gray-700 ' : 'bg-gray-300 text-black hover:bg-gray-300 '} disabled:opacity-50`}
         >
           Next
         </button>
+      </div>
       </div>
     </div>
   );

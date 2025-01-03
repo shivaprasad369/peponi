@@ -2,7 +2,7 @@ import { legacy_createStore as createStore } from 'redux'
 
 const initialState = {
   sidebarShow: true,
-  theme: 'light',
+  theme: localStorage.getItem('coreui-free-react-admin-template-theme'),
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
@@ -13,6 +13,7 @@ const changeState = (state = initialState, { type, ...rest }) => {
       return state
   }
 }
+
 
 const store = createStore(changeState)
 export default store

@@ -4,13 +4,15 @@ import {
  
   cilLockLocked,
   cilNewspaper,
-  cilSpeedometer
+  cilSpeedometer,
+  cilUserFollow,
+  cilLibraryAdd,
+  cilUser,
+  cilSpeech, 
+  cilCalculator
 } from '@coreui/icons'
 import {CNavItem} from '@coreui/react'
-import { BsQuestionOctagonFill } from 'react-icons/bs'
-import { RiAdminFill } from 'react-icons/ri'
-import { MdOutlineSpeakerNotes } from 'react-icons/md'
-
+import { BsFillQuestionOctagonFill } from 'react-icons/bs'
 const _nav = [
   {
     component: CNavItem,
@@ -26,31 +28,32 @@ const _nav = [
     component: CNavItem,
     name: "Manage Blogs",
     to: '/admin/account/blogs',
-    icon: <MdOutlineSpeakerNotes className='mr-4' customClassName="nav-icon" />,
+    icon: <CIcon icon={cilNewspaper } customClassName="nav-icon" />
   },
   {
     component: CNavItem,
     name: "Newsletter Subscribers",
     to: '/admin/account/newsletter',
-    icon: <RiAdminFill className='mr-4' customClassName="nav-icon" />,
+    icon: <CIcon icon={cilUserFollow} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: "Manage FAQ's",
     to: '/admin/account/faq',
-    icon: <BsQuestionOctagonFill className='mr-4' customClassName="nav-icon" />,
+    icon:<BsFillQuestionOctagonFill  className='nav-icon'/>
+    // icon: <CIcon icon={cilSpeech } customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: "CMS",
     to: '/admin/account/cms',
-    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilLibraryAdd} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: "Admin Profile",
     to: '/admin/account/profile',
-    icon: <RiAdminFill  customClassName="nav-icon"  className=' mr-4' />,
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
@@ -58,7 +61,7 @@ const _nav = [
     to: '/admin/account/change-password',
     icon: <CIcon icon={cilLockLocked} customClassName="nav-icon" />,
   },
- 
+  
  
 ]
 
