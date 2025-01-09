@@ -5,6 +5,10 @@ import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import './scss/examples.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Category from './views/pages/Product/Category'
+import Subcategory from './views/pages/Product/Subcategory'
+import SubcategoryTwo from './views/pages/Product/SubcategoryTwo'
+import Attribute from './views/pages/Product/Attribute'
 const Adminlogin = lazy(() => import('./views/pages/Admin/Adminlogin'));
 const Verify = lazy(() => import('./views/pages/Admin/Verify'));
 const Dashboard = lazy(() => import('./views/dashboard/Dashboard'));
@@ -57,10 +61,14 @@ const App = () => {
           <Route path="dashboard" name="admin" element={<Dashboard />} />
           <Route path="cms" name="admin" element={<CMs />} />
           <Route path="faq" name="admin" element={<Faq />} />
+          <Route path="manage-category" name="admin" element={<Category />} />
           <Route path="profile" name="admin" element={<Profile />} />
           <Route path="change-password" name="admin" element={<ChangePassword />} />
           <Route path="newsletter" name="admin" element={<Newletter />} />
           <Route path="blogs" name="admin" element={<Blogs />} />
+          <Route path='subcategory' name="subcategory" element={<Subcategory/>}/>
+          <Route path='subcategory-two' name="subcategory-two" element={<SubcategoryTwo/>}/>
+          <Route path='attribute' name="attribute" element={<Attribute/>}/>
           </Route>
           <Route exact path="/register" name="Register Page" element={<Register />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />

@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Faq() {
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
   const queryClient = useQueryClient();
-  const [isEdit, setIsEdit] = useState(null); // Default null instead of empty string
+  const [isEdit, setIsEdit] = useState(null); 
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch()
 const theme=useSelector((state)=>state.theme)
 
-console.log(theme)
+// console.log(theme)
   const onSubmit = async (data) => {
     try {
       if (isEdit) {
@@ -32,7 +32,7 @@ console.log(theme)
       reset();
       queryClient.invalidateQueries(['faqs']);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Failed to save FAQ");
     }
   };
@@ -43,8 +43,10 @@ console.log(theme)
       await axios.delete(`${import.meta.env.VITE_API_URL}/faq/${id}`);
       toast.success("FAQ Deleted Successfully");
       queryClient.invalidateQueries(['faqs']);
+
+      setUsers(users.filter((user) => user.id !== id));
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Failed to delete FAQ");
     }
   };
@@ -79,7 +81,7 @@ console.log(theme)
         queryClient.invalidateQueries(['faqs']);
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Failed to update answer");
     }
   };

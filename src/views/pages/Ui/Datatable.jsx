@@ -3,7 +3,7 @@ import { BiHide } from "react-icons/bi";
 import { FaExpandArrowsAlt, FaEye, FaRegEdit, FaSpinner, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit,deleting=false }) => {
+const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit,deleting=false,isLoading=false }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage,setRowsPerPage] = useState(5);
@@ -29,7 +29,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
   // Handle search
   const filteredData = sortedData.filter((item) =>
     Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
@@ -60,7 +60,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
   };
 
   const handleDeleteSelected = () => {
-    selectedRows.forEach((row) => onDelete(row));
+    selectedRows.forEach((row) => onDelete(row.CategoryID ? row : row.id));
     setSelectedRows([]);
   };
 
@@ -74,8 +74,14 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
     });
   };
 
+if(isLoading){
+  return <div className="w-[100%] h-[100%] flex items-center justify-center">
+    <h1 className="text-2xl font-bold">Loading...</h1>
+  </div>
+}
   return (
     <div className={`xl:p-4 max-xl:p-2   w-[100%] h-[100%] ${theme === 'dark' ? 'bg-[#2e3442] text-white' : 'bg-white text-gray-800 '} `}>
+
       {isEdit && <div onClick={()=>{window.location.reload()}} className="flex justify-end items-end mb-3">
         <button className={`bg-black text-white p-2 rounded-md ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>+ Add New</button>
       </div>}
@@ -118,7 +124,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                   onChange={handleSelectAll}
                 />
               </th>
-              {Object.keys(data[0] || {})?.filter(key => key !== "answer")?.map((key) => (
+              {Object.keys(data[0] || {})?.filter(key => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID')?.map((key) => (
                 <th
                   key={key}
                   onClick={() => handleSort(key)}
@@ -133,7 +139,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
           <tbody>
             {currentRows.map((row, index) => (
               <React.Fragment key={index}>
-                <tr className={`text-center ${theme === 'dark' ? 'bg-[#292f3b] text-white hover:bg-gray-700 ' : 'bg-gray-100 text-black hover:bg-gray-200 '}`}>
+                <tr className={`text-center  ${theme === 'dark' ? 'bg-[#292f3b] text-white hover:bg-gray-700 ' : 'bg-gray-100 text-black hover:bg-gray-200 '}`}>
                   <td className="p-2 border border-gray-200">
                     <input
                       type="checkbox"
@@ -141,12 +147,17 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                       onChange={() => handleRowSelect(row)}
                     />
                   </td>
-                  {Object.entries(row)?.filter(([key]) => key !== "answer")?.map(([key, value], i) => (
-                    <td key={i} className="p-2 border border-gray-200">
-                      {value?.length > 100 ? value.substring(0, 100) + '...' : value}
+                  {Object.entries(row)?.filter(([key]) => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID')?.map(([key, value], i) => (
+                    <td key={i} className="p-2 border border-gray-200 items-center justify-center">
+                      {key==="Image" || key==="image" ? 
+                      <div className="w-[100%] h-[100%] flex items-center justify-center"> 
+                      <img src={import.meta.env.VITE_API_URL+"/"+value} alt="image" className=" h-[100px] object-cover"/>
+                      </div>
+                       : value?.length>100? value.substring(0, 100) + '...' : value}
+                   
                     </td>
                   ))}
-                  <td className="p-2 border flex justify-center items-center ">
+                  <td className="p-2 border h-[100%] flex justify-center items-center ">
                    {edit && <button
                       onClick={() => onEdit(row)}
                       className="mr-2 p-1 text-blue-500 hover:text-blue-700"
@@ -154,7 +165,7 @@ const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,
                       <FaRegEdit />
                     </button>}
                     <button
-                      onClick={() => onDelete(row.id)}
+                      onClick={() => onDelete(row.CategoryID ? row : row.id)}
                       className="p-1 text-red-500 hover:text-red-700"
                     >
                      <FaTrash />

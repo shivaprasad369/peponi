@@ -20,10 +20,10 @@ export default function Adminlogin() {
   const onSubmit = async(data) => {
     setIsLoading(true);
     try {
-      console.log(data);
+      // console.log(data);
       const response = await axios.post(`${apiUrl}/admin/login`,data)
       alert(response.data.message);
-      console.log(response.data.token);
+      // console.log(response.data.token);
       localStorage.setItem('adminToken',response.data.token);
       navigate('/admin/account/dashboard');
       setIsLoading(false);

@@ -7,6 +7,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DataTable from '../Ui/Datatable';
 import View from '../Ui/View';
 import { useSelector } from 'react-redux';
+
 export default function Blogs() {
     const [value, setValues] = useState('');
     const queryClient = useQueryClient()
@@ -14,9 +15,11 @@ export default function Blogs() {
   const {register,handleSubmit,formState:{errors},getValues,setValue,reset} = useForm()
   const [image,setImage] = useState('')
   const [blogs,setBlogs] = useState([])
+  const [imagePreview, setImagePreview] = useState(null);
   const [view,setView] = useState(false)
   const [viewData,setViewData] = useState('')
   const theme=useSelector((state)=>state.theme)
+  const [dragActive, setDragActive] = useState(false);
   const [deleting,setDeleting]=useState(false)
   const onSubmit = async (data) => {
 
@@ -52,19 +55,24 @@ export default function Blogs() {
         }
   }
   const handleDelete = async (id) => {
-    setDeleting(true)
+    setDeleting(true);
     try {
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/blog/${id}`)
-        if(response.status === 200){
-            toast.success('Blog deleted successfully')
-            queryClient.invalidateQueries({ queryKey: ['blogs'] })
-            setDeleting(false)
-        }
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/blog/${id}`);
+      if (response.status === 200) {
+        toast.success("Blog deleted successfully");
+  
+        // Optimistically update the cache to remove the deleted item
+        queryClient.setQueryData(["blogs"], (oldData) => {
+          return oldData?.filter((blog) => blog.id !== id) || [];
+        });
+      }
     } catch (error) {
-        toast.error(error.response.data.message)
-        setDeleting(false)
+      toast.error(error.response?.data?.message || "Error deleting the blog");
+    } finally {
+      setDeleting(false);
     }
-  }
+  };
+  
   const handleEditSubmit = async (data) => {
     const formData = new FormData()
     formData.append('title',data.title)
@@ -102,7 +110,7 @@ export default function Blogs() {
     setValue("author",id.author)
     setValue("shortdescription",id.shortdesc)
     setValue("title",id.title)
-    setValue("image",id.image)
+    setValue("image",`${import.meta.env.VITE_API_URL}/${id.image}`)
     setValues(id.description)
     window.scrollTo({ top: 0, behavior: "smooth" });
     setValue('id',id.id)
@@ -114,30 +122,26 @@ export default function Blogs() {
     setImage(()=>getValues('image'))
    
   },[getValues])
-  const { data: dataBlog, isLoading, isError } = useQuery({
+  const { data: dataBlog = [], isLoading, isError } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/blog`);
         if (response.status === 200) {
-          return response.data.result;
-        } else {
-          throw new Error("Unexpected response status");
-        }
+          return response.data.result || []; 
+      } else {
+        throw new Error("Unexpected response status");
+        return []
+      } 
       } catch (error) {
-        const errorMessage = error.response?.data?.message || "An error occurred";
-        toast.error(errorMessage);
-        throw error;
+        console.error(error);
+        return []
       }
     },
-    refetchOnWindowFocus: false, 
-    
+    refetchOnWindowFocus: false,
     retry: 1,
   });
-  
-    useEffect(() => {
-    if (dataBlog?.length > 0) setBlogs(dataBlog);
-  }, [dataBlog]);
+console.log(getValues('image'))
   const handleView = (id) => {
    setView(true)
    setViewData(id)
@@ -164,6 +168,7 @@ export default function Blogs() {
     </div>
   </div>
   }
+
   return (
     <div className={`p-4 w-full h-full flex-col gap-10 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex justify-center items-center`}>
         <ToastContainer/>
@@ -199,9 +204,15 @@ export default function Blogs() {
                 </div>
                 }
             <label htmlFor='image' className='text-lg mt-3 -mb-3 font-semibold'>Image</label>
-            <input type="file" placeholder='Image' accept='image/*' defaultValue={getValues('image')} 
+           
+          {errors.image && (
+            <span className="text-red-500">Image is required</span>
+          )}
+
+
+                <input type="file" placeholder='Image' accept='image/*' 
             className={`p-2 mt-3 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`} 
-            {...register('image',{required:true})} />
+            {...register('image',{required:true})} defaultValue={getValues('image')} />
             {errors.image && <span className='text-red-500'>Image is required</span>}
             <div className='flex justify-between pt-1 border-t-[1px] border-gray-300 mt-5 w-full items-center'> 
                 <button type='reset' onClick={()=>{reset(),setValues(''),setIsEdit(false),setValue('shortdescription','')}} className={`capitalize font-semibold border-[1px] tracking-wider  py-2 px-4 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>clear</button>
@@ -212,8 +223,8 @@ export default function Blogs() {
     
         </div>
         </div>
-        {dataBlog ?<DataTable
-        data={blogs}
+        {!isLoading && dataBlog?.length > 0 ?<DataTable
+        data={dataBlog}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         onDelete={handleDelete}
@@ -222,6 +233,7 @@ export default function Blogs() {
         onView={handleView}
         view={true}
         onEdit={handleEdit}
+        isLoading={isLoading}
       /> : <div className='w-[100%] h-[100%] flex items-center justify-center'>
         <h1 className='text-2xl font-bold'>No Blogs Found</h1>
       </div>}
