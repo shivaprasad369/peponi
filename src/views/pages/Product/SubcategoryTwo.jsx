@@ -44,7 +44,7 @@ export default function SubcategoryTwo() {
         }
     }
     const {isLoading, isError, data=[], error} = useQuery({
-        queryKey: ['subcategorytwos',categoryId],
+        queryKey: ['subcategorytwos'],
         queryFn: handleGetSubCategories,
     })
     const handleSubmit = async (e) => {
