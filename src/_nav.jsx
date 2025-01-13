@@ -97,12 +97,22 @@ const _nav = [
       },
       {
         component: CNavItem,
+        name: 'Manage Products',
+        to: '/admin/account/add-product',
+      },
+      {
+        component: CNavItem,
+        name: 'Manage Feature Product',
+        to: '/admin/account/feature-product',
+      },
+      {
+        component: CNavItem,
         name: (
           <React.Fragment>
             {'Add Product'}
           </React.Fragment>
         ),
-        to: '/admin/account/add-product',
+        to: '/admin/account/add-products',
         badge: {
           color: 'danger',
           text: 'PRO',

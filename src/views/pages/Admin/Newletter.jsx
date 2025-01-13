@@ -72,13 +72,16 @@ export default function Newletter() {
         <ToastContainer autoClose={1000}/>
       <div className={`w-[100%] h-fit ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-4 mt-[3rem] py-[2rem] px-[1rem]  items-start justify-center`}>
         <h1 className='text-2xl font-bold'>Newsletter Subscribers</h1>
-        <DataTable
+       {users.length>0 ? <DataTable
         data={users}
+        title="List Of Newsletter Subscribers"
         onDelete={handleDelete}
         onExport={handleExport}
         expand={false}
         edit={false}
-        />
+        /> : <div className="w-[100%] h-[100%] flex items-center justify-center">
+        <h1 className="text-2xl font-bold">No Data Found</h1>
+    </div>}
       </div>
     </div>
   )

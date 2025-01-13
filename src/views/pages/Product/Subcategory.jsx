@@ -134,12 +134,12 @@ export default function Subcategory() {
   return (
     <div className='w-[100%] h-[100%] flex justify-center items-center bg-slate-200'>
         <ToastContainer autoClose={1000}/>
-    <div className='w-[100%] flex flex-col gap-10 h-[100%]'>
+    <div className='w-[100%] flex flex-col gap-3 h-[100%]'>
         <div className='flex mt-2 justify-start px-4  gap-2 w-[100%] items-center'>
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'> Manage Subcategory</h1>
         </div>
-        <div className='w-[80%] bg-white p-4 flex flex-col  justify-center items-start'>
+        <div className='w-[80%] bg-white mb-5 p-4 flex flex-col  justify-center items-start'>
             <form onSubmit={isEdit ? handleUpdate : handleSubmit} ref={formref}  className='w-[100%]' encType='multipart/form-data'>
                 <div className='w-[100%] grid grid-cols-2 gap-x-10 gap-y-4 justify-center items-center'>
                     <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -189,6 +189,7 @@ export default function Subcategory() {
         </div>
             {!isLoading ? <DataTable data={data}
             onEdit={handleEdit}
+            title="List Of Subcategory"
             onDelete={handleDelete}
             /> : <div className='w-[100%] h-[100%] flex justify-center items-center'>
                 <h1 className='text-2xl font-semibold'>Loading...</h1>

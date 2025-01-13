@@ -149,13 +149,13 @@ export default function Category() {
 
     return (
         <div className='w-[100%] h-[100%] flex justify-center items-center bg-slate-200'>
-            <div className='w-[100%] flex flex-col gap-10 h-[100%]'>
+            <div className='w-[100%] flex flex-col gap-3 h-[100%]'>
                 <ToastContainer autoClose={1000} />
                 <div className='flex justify-start px-4  gap-2 w-[100%] items-center'>
                     <FaSitemap className='text-3xl font-semibold' />
                     <h1 className='text-4xl font-normal'> Manage Category</h1>
                 </div>
-                <div className='w-[80%] bg-white p-4 flex flex-col  justify-center items-start'>
+                <div className='w-[80%] bg-white p-4 mb-5 flex flex-col  justify-center items-start'>
                     <form ref={formref} onSubmit={isEdit ? handleEditSubmit : handleSubmit} className='w-[100%]' encType='multipart/form-data'>
                         <div className='w-[100%] grid grid-cols-2 gap-x-10 gap-y-4 justify-center items-center'>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -248,6 +248,7 @@ export default function Category() {
                 </div>
                     {(!isLoading && data.length>0) ? <DataTable data={data}
                     onDelete={handleDelete}
+                    title="List Of Category"
                     onEdit={handleEdit}
                      /> : <div className="w-[100%] h-[100%] flex items-center justify-center">
                         <h1 className="text-2xl font-bold">No Data Found</h1>

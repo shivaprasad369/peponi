@@ -3,7 +3,7 @@ import { BiHide } from "react-icons/bi";
 import { FaExpandArrowsAlt, FaEye, FaRegEdit, FaSpinner, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const DataTable = ({ data, onDelete, onView,view, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit,deleting=false,isLoading=false }) => {
+const DataTable = ({ data, onDelete, onView,view,title, onEdit,expand=false,edit=true,onExport,isEdit=false,setIsEdit,deleting=false,isLoading=false }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage,setRowsPerPage] = useState(5);
@@ -86,6 +86,9 @@ if(isLoading){
         <button className={`bg-black text-white p-2 rounded-md ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>+ Add New</button>
       </div>}
       {/* Search Bar */}
+      <div className="text-xl font-semibold w-[100%] border-b-[1px] border-gray-300 p-2 mb-3">
+        {title}
+      </div>
       <div className="w-[100%] flex items-center justify-between">
 
       <input
@@ -116,7 +119,7 @@ if(isLoading){
       <div className="overflow-x-auto ">
         <table className="w-full table-auto border-collapse border border-gray-200">
           <thead>
-            <tr className={`${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>
+            <tr className={`${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-[#F1F5F9] text-[#252525'}`}>
               <th className="p-2 flex items-center justify-center  border-gray-200">
                 <input
                   type="checkbox"
@@ -128,7 +131,7 @@ if(isLoading){
                 <th
                   key={key}
                   onClick={() => handleSort(key)}
-                  className={`p-2 border border-gray-200 capitalize cursor-pointer   text-center ${theme === 'dark' ? 'bg-[#212631] text-white hover:bg-gray-700 ' : 'bg-gray-200 text-black hover:bg-gray-300 '}`}
+                  className={`p-2 border border-gray-200 capitalize cursor-pointer   text-center ${theme === 'dark' ? 'bg-[#212631] text-white hover:bg-gray-700 ' : 'bg-[#F1F5F9] text-[#252525] hover:bg-gray-300 '}`}
                 >
                   {key} {sortOrder?.field === key ? (sortOrder.order === "asc" ? "▲" : "▼") : ""}
                 </th>
@@ -139,7 +142,7 @@ if(isLoading){
           <tbody>
             {currentRows.map((row, index) => (
               <React.Fragment key={index}>
-                <tr className={`text-center  ${theme === 'dark' ? 'bg-[#292f3b] text-white hover:bg-gray-700 ' : 'bg-gray-100 text-black hover:bg-gray-200 '}`}>
+                <tr className={`text-center  ${theme === 'dark' ? 'bg-[#292f3b] text-white hover:bg-gray-700 ' : ' text-black hover:bg-slate-100 '}`}>
                   <td className="p-2 border border-gray-200">
                     <input
                       type="checkbox"
@@ -157,7 +160,8 @@ if(isLoading){
                    
                     </td>
                   ))}
-                  <td className="p-2 border h-[100%] flex justify-center items-center ">
+                  <td className="p-2  border h-[100%]   ">
+                    <div className={` items-center  justify-center h-[100%] w-[100%] gap-2 ${expand && 'flex' }`}> 
                    {edit && <button
                       onClick={() => onEdit(row)}
                       className="mr-2 p-1 text-blue-500 hover:text-blue-700"
@@ -182,6 +186,7 @@ if(isLoading){
                     >
                       {expandedRows.includes(row) ? <BiHide  className="text-xl text-gray-500 hover:text-gray-700"/> : <FaExpandArrowsAlt  className="text-xl text-gray-500 hover:text-gray-700"/>}
                     </button>
+                    </div>
                   </td>
                 </tr>
                 {expandedRows.includes(row) && (
@@ -207,9 +212,11 @@ if(isLoading){
       onClick={()=>onExport(data)}>Export</button>
       </div>
       }
-      <div className="w-[100%] flex items-end justify-end gap-3">
-
-      <div className="flex  items-center gap-2 mt-4">
+      <div className="w-[100%] border-t-[1px] border-gray-300 mt-5 flex items-end pt-2 justify-between gap-3">
+      <div >
+        <span className="text-md">Showing {indexOfFirstRow + 1} to {Math.min(indexOfFirstRow + rowsPerPage, filteredData?.length)} of {filteredData?.length} entries</span>
+      </div>
+      <div className="flex  items-center gap-2 ">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
@@ -217,9 +224,7 @@ if(isLoading){
         >
           Previous
         </button>
-        {/* <span>
-          Page {currentPage} of {totalPages}
-        </span> */}
+       
         <div className="flex items-center justify-center gap-1">
          {Array.from({ length: totalPages }, (_, i) => i + 1).map((item)=>(
           <div key={item} onClick={()=>setCurrentPage(item)} className={`w-[2rem] h-[2rem] flex items-center justify-center cursor-pointer hover:bg-black

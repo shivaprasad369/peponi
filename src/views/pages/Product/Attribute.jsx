@@ -5,6 +5,11 @@ import useGetCategory from '../Ui/useGetCategory'
 import { IoIosAddCircle } from 'react-icons/io'
 import { HiMinusCircle } from 'react-icons/hi'
 import AttributeUi from '../Ui/AttributeUi'
+import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
+import Attributetabel from '../Ui/Attributetabel'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import NewAttributes from '../Ui/NewAttributes'
 export default function Attribute() {
     const {category, loading, error, getCategory} = useGetCategory()
     const {category:subCategory, loading:subCategoryLoading, error:subCategoryError, getCategory:getSubCategory} = useGetCategory()
@@ -12,11 +17,24 @@ export default function Attribute() {
     const [categoryId, setCategoryId] = useState(null)
     const [subCategoryId, setSubCategoryId] = useState(null)
     const [subCategoryLv2Id, setSubCategoryLv2Id] = useState(null)
-    const [count, setCount] = useState({
-        attributeCount: 1,
-        attributeValueCount: 1
-    })
+    const [attributeData, setAttributeData] = useState([])
     const [attributeCount, setAttributeCount] = useState(1)
+    const [isEdit, setIsEdit] = useState(false)
+    const queryClient = useQueryClient()
+    const {data:attributeD, isLoading:attributeLoading, isError:attributeError, refetch:attributeRefetch} = useQuery({
+        queryKey:['attribute'],
+        queryFn:async()=>{
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/attribute`)
+                if(response.status === 200){
+                    return response.data
+                }
+            } catch (error) {
+                toast.error(error.response.data.message || 'Something went wrong!')
+            }
+        }
+    })
+console.log(attributeD)
     useEffect(() => {
         getCategory()
     }, [])
@@ -30,44 +48,103 @@ export default function Attribute() {
             getSubCategoryLv2(subCategoryId)
         }
     }, [subCategoryId])
-    const handleAddAttribute = (id) => {
-     setCount((prev) => ({
-        ...prev,
-        attributeCount:id,
-        attributeValueCount: prev.attributeValueCount + 1
-     }))
-    }
-    const handleRemoveAttribute = (id) => {
-        if(count.attributeValueCount > 1){
-            setCount((prev) => ({
-                ...prev,
-                attributeCount:id,
-                attributeValueCount: prev.attributeValueCount - 1
-            }))
-        }
-    }
     const handleNewAddAttribute = () => {
         setAttributeCount((prev) => prev + 1)
     }
-    const handleNewAddAttributeValue = () => {
-        setCount((prev) => ({
-            ...prev,
-            attributeValueCount: prev.attributeValueCount + 1
-        }))
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const Attributes = Object.values(attributeData).map((item) => ({
+          attributeName: item.attributeName,
+          values: item.value,
+        }));
+        try {
+          if (categoryId && subCategoryId && subCategoryLv2Id) {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/attribute`,
+                {   Attributes ,
+                categoryId,
+                subCategoryId,
+                subCategoryLv2Id
+            });
+            if (response.status === 200) {
+              toast.success(response.data.message);
+              queryClient.invalidateQueries({queryKey:['attribute']})
+              setAttributeData([])
+              setAttributeCount(1) 
+              setCategoryId('')
+              setSubCategoryId('')
+              setSubCategoryLv2Id('')
+           
+            }
+          } else {
+            toast.error('Please select all the fields'); 
+          }
+        } catch (error) {
+          if (error.response) {
+            toast.error(error.response.data.message || 'Something went wrong!');
+          } else {
+            toast.error('An unexpected error occurred. Please try again later.');
+          }
+        }
+      };
+    const handleReset = () => {
+        setAttributeData([])
+        setAttributeCount(1) 
+        setCategoryId('')
+        setSubCategoryId('')
+        setSubCategoryLv2Id('')
     }
+    const handleEdit=(value)=>{
+       
+        window.scrollTo(0, 0);
+        setCategoryId(value.CategoryID)
+        setSubCategoryId(value.subcategory)
+        setSubCategoryLv2Id(value.subcategorytwo)
+        setAttributeData(value.attributes)
+        setAttributeCount(value.attributes.length)
+        setIsEdit(true)
+      }
+      const handleEditSubmit = async (e) => {
+        e.preventDefault();
+        const Attributes = Object.values(attributeData).map((item) => ({
+            attributeName: item.attributeName,
+            attributeId: item.attribute_id,
+            values: item.values
+          }));
+          try {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/attribute`,{
+                Attributes,
+                categoryId,
+                subCategoryId,
+                subCategoryLv2Id
+            })
+            if(response.status === 200){
+                toast.success(response.data.message)
+                queryClient.invalidateQueries({queryKey:['attribute']})
+                setAttributeData([])
+                setAttributeCount(1) 
+                setCategoryId('')
+                setSubCategoryId('')
+                setSubCategoryLv2Id('')
+                setIsEdit(false)
+            }
+          } catch (error) {
+            toast.error(error.response.data.message || 'Something went wrong!')
+          }
+      }
   return (
     <div className='w-[100%] h-[100%] flex justify-center items-center bg-slate-200'>
+        <ToastContainer/>
     <div className='w-[100%] p-2 flex flex-col gap-3 h-[100%]'>
         <div className='flex mt-2 justify-start px-4  gap-2 w-[100%] items-center'>
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'>  Manage Attributes</h1>
         </div>
         <div className='w-[100%] bg-white p-4 flex flex-col  justify-center items-start'>
-            <form className='w-[100%]'>
+            <form onSubmit={isEdit ? handleEditSubmit : handleSubmit}  className='w-[100%]'>
                 <div className="w-[100%] text-[#252525] text-2xl font-semibold  flex gap-1 items-center">
                 <MdCategory /> <span>Category</span>
                 </div>
-                <div className='w-[100%] bg-[#FAEBD7] p-4 mt-2 grid grid-cols-3 gap-x-8 gap-y-4 justify-center items-center'>
+                <div className='w-[100%] bg-slate-200 p-4 mt-2 grid grid-cols-3 gap-x-8 gap-y-4 justify-center items-center'>
                     <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                         <label htmlFor="attributeName" className='text-xl font-semibold'>
                             Category <span className='text-red-500'>*</span>
@@ -108,23 +185,33 @@ export default function Attribute() {
                 <IoIosAddCircle /> <span>Attributes</span>
                 </div>
                 {Array.from({length: attributeCount}).map((_, index) => (
-               <AttributeUi key={index} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>
-                ))}
+                    <>          
+             {isEdit ?  <AttributeUi  key={index} isEdit={isEdit} attributeData={attributeData} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/> 
+             : <NewAttributes key={index} isEdit={isEdit} attributeData={attributeData} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>}
+            </>
+            ))}
                 <div onClick={handleNewAddAttribute} className='bg-black cursor-pointer text-white  px-3 py-2 text-md font-semibold'>
                     <span>Add Attribute</span>
                 </div>
                 <div className='w-[100%] mt-4 flex justify-between border-t-[1px] border-gray-300 pt-3 items-center'>
-                    <button type='reset' className='w-[100px] px-3 py-1 flex bg-[#fdfdfd] border-[1px] border-gray-300 text-md font-semibold '>
+                    <button type='reset' onClick={handleReset} className='w-[100px] px-3 py-1 flex bg-[#fdfdfd] border-[1px] border-gray-300 text-md font-semibold '>
                      ClearForm
                     </button>
                     <button type='submit' className='w-[100px] px-4 py-2 text-white bg-[#000000] text-md '>
-                        Add
+                        {isEdit ? "Update" : "Add"}
                     </button>
                 </div>
              
                 </div>
             </form>
             </div>
+            {!attributeLoading &&
+             <Attributetabel 
+             data={attributeD} 
+             isLoading={attributeLoading} 
+             isError={attributeError}
+             onEdit={handleEdit}
+             />  }    
     </div>
     </div>
   )

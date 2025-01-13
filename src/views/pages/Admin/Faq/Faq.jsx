@@ -118,6 +118,7 @@ const theme=useSelector((state)=>state.theme)
       </div>
       <DataTable
         data={users}
+        title="List Of FAQ"
         onDelete={handleDelete}
         expand={true}
         onEdit={handleEdit}

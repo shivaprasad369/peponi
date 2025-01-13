@@ -9,6 +9,8 @@ import Category from './views/pages/Product/Category'
 import Subcategory from './views/pages/Product/Subcategory'
 import SubcategoryTwo from './views/pages/Product/SubcategoryTwo'
 import Attribute from './views/pages/Product/Attribute'
+import AddProduct from './views/pages/Product/AddProduct'
+import FeatureProduct from './views/pages/Product/FeatureProduct'
 const Adminlogin = lazy(() => import('./views/pages/Admin/Adminlogin'));
 const Verify = lazy(() => import('./views/pages/Admin/Verify'));
 const Dashboard = lazy(() => import('./views/dashboard/Dashboard'));
@@ -69,6 +71,8 @@ const App = () => {
           <Route path='subcategory' name="subcategory" element={<Subcategory/>}/>
           <Route path='subcategory-two' name="subcategory-two" element={<SubcategoryTwo/>}/>
           <Route path='attribute' name="attribute" element={<Attribute/>}/>
+          <Route path='add-product' name="add-product" element={<AddProduct/>}/>
+          <Route path='feature-product' name="feature-product" element={<FeatureProduct/>}/>
           </Route>
           <Route exact path="/register" name="Register Page" element={<Register />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />

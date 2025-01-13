@@ -20,10 +20,8 @@ export default function Adminlogin() {
   const onSubmit = async(data) => {
     setIsLoading(true);
     try {
-      // console.log(data);
       const response = await axios.post(`${apiUrl}/admin/login`,data)
       alert(response.data.message);
-      // console.log(response.data.token);
       localStorage.setItem('adminToken',response.data.token);
       navigate('/admin/account/dashboard');
       setIsLoading(false);
@@ -32,9 +30,7 @@ export default function Adminlogin() {
       setIsLoading(false);
     }
     reset();
-  
   }
-
   return (
     <section className='w-[100%] h-[100vh] flex justify-center items-center overflow-hidden bg-gray-200'>
       <div className='xl:w-[24%] lg:w-[30%] md:w-[40%] w-[90%] h-fit p-[1rem] shadow-lg flex items-center justify-center bg-white rounded-lg'>

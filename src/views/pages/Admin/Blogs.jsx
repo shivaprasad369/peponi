@@ -4,9 +4,10 @@ import MyEditor from '../Ui/MyEditor'
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import DataTable from '../Ui/Datatable';
 import View from '../Ui/View';
 import { useSelector } from 'react-redux';
+import { FaSitemap } from 'react-icons/fa';
+import DataTable from '../Ui/Datatable';
 
 export default function Blogs() {
     const [value, setValues] = useState('');
@@ -170,22 +171,31 @@ console.log(getValues('image'))
   }
 
   return (
-    <div className={`p-4 w-full h-full flex-col gap-10 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex justify-center items-center`}>
+    <div className={`p-4 w-full h-full flex-col gap-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} flex justify-center items-center`}>
         <ToastContainer/>
-        <div className={`w-full h-full ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} rounded-md p-4`}>
-      <h1 className='text-2xl font-bold'>Manage Blogs</h1>
+        <div className='flex items-center justify-start w-[100%]'>
+          <FaSitemap className='text-3xl font-semibold' />
+          <h1 className='text-4xl font-normal'>Manage Blogs</h1>
+        </div>
+        <div className={`w-full mb-5 h-full ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} rounded-md p-4`}>
       <div className='flex justify-center w-[100%] items-center mt-4'>
         <form className='flex w-[100%] flex-col ' onSubmit={handleSubmit(isEdit ? handleEditSubmit : onSubmit)} encType='multipart/form-data'>
+           <div className='w-[100%] grid grid-cols-2 gap-4'>
+            <div className='flex flex-col gap-2'>
             <label htmlFor='title' className='text-lg mt-3 font-semibold'>Blog Title</label>
             <input type="text" placeholder='Title' defaultValue={getValues('title')}
             className={`p-2 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`}
              {...register('title',{required:true})} />
             {errors.title && <span className='text-red-500'>Title is required</span>}
+            </div>
+            <div className='flex flex-col gap-2'>
             <label htmlFor='author' className='text-lg mt-3 font-semibold'>Author</label>
             <input type="text" placeholder='Author' defaultValue={getValues('author')}
             className={`p-2 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`}
              {...register('author',{required:true})} />
             {errors.author && <span className='text-red-500'>Author is required</span>}
+            </div>
+            </div>
             <label htmlFor='shortdescription' className='text-lg mt-3 font-semibold'>Short Description</label>
             <textarea  placeholder='Short Description' rows={5} defaultValue={getValues('shortdescription')}
              className={`p-2 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`} {...register('shortdescription',{required:true})} />
@@ -225,6 +235,7 @@ console.log(getValues('image'))
         </div>
         {!isLoading && dataBlog?.length > 0 ?<DataTable
         data={dataBlog}
+        title="List Of Blogs"
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         onDelete={handleDelete}
