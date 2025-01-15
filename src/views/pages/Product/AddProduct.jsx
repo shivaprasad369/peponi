@@ -53,7 +53,7 @@ useEffect(()=>{
             setAttributeValues({})
         }
     }
-},[oldCategoryId,category,loading])
+},[category,loading])
 useEffect(()=>{
     if(!subCategoryLoading){
         const categoryData = subCategory.find(item=>item.CategoryID===oldSubCategoryId)
@@ -61,7 +61,7 @@ useEffect(()=>{
             setAttributeValues({})
         }
     }
-},[oldSubCategoryId,subCategory,subCategoryLoading])
+},[subCategory,subCategoryLoading])
 useEffect(()=>{
     if(!subCategoryLv2Loading){
         const categoryData = subCategoryLv2.find(item=>item.CategoryID===oldSubCategoryLv2Id)
@@ -69,7 +69,7 @@ useEffect(()=>{
             setAttributeValues({})
         }
     }
-},[oldSubCategoryLv2Id,subCategoryLv2,subCategoryLv2Loading])
+},[subCategoryLv2,subCategoryLv2Loading])
 
     const { data: product, isLoading, isError } = useQuery({
         queryKey: ['product'],
@@ -341,7 +341,7 @@ useEffect(()=>{
         setView(false)
         setViewData('')
     }
-   
+   console.log(attributeValues)
     return (
         <div className='w-[100%] h-[100%] flex px-3 justify-center items-center bg-slate-200'>
             <ToastContainer />
