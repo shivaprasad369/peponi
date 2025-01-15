@@ -432,7 +432,7 @@ useEffect(()=>{
                                 <select type='text' value={categoryId} onChange={(e) => setCategoryId(e.target.value)} name='productCategory' id='productCategory' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required>
                                     <option value=''>Select Category</option>
                                     {!loading && category?.map((item) => (
-                                        <option value={item.CategoryID}>{item.CategoryName}</option>
+                                        <option key={item.CategoryID} value={item.CategoryID}>{item.CategoryName}</option>
                                     ))}
                                 </select>
                             </div>
