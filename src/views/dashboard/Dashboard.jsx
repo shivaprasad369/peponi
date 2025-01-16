@@ -1,376 +1,101 @@
-  import React from 'react'
-  import WidgetsDropdown from '../widgets/WidgetsDropdown'
-  import MainChart from './MainChart'
- 
-  import {
-    CAvatar,
-    CButton,
-    CButtonGroup,
-    CCard,
-    CCardBody,
-    CCardFooter,
-    CCardHeader,
-    CCol,
-    CProgress,
-    CRow,
-    CTable,
-    CTableBody,
-    CTableDataCell,
-    CTableHead,
-    CTableHeaderCell,
-    CTableRow,
-    CWidgetStatsE,
-    CWidgetStatsF,
-  } from '@coreui/react'
-  import CIcon from '@coreui/icons-react'
-  import {
-    cibCcAmex,
-    cibCcApplePay,
-    cibCcMastercard,
-    cibCcPaypal,
-    cibCcStripe,
-    cibCcVisa,
-    cibGoogle,
-    cibFacebook,
-    cibLinkedin,
-    cifBr,
-    cifEs,
-    cifFr,
-    cifIn,
-    cifPl,
-    cifUs,
-    cibTwitter,
-    cilCloudDownload,
-    cilPeople,
-    cilUser,
-    cilUserFemale,
-    cilChartPie,
-  } from '@coreui/icons'
-  
-  import avatar1 from '../../assets/images/avatars/1.jpg'
-  import avatar2 from '../../assets/images/avatars/2.jpg'
-  import avatar3 from '../../assets/images/avatars/3.jpg'
-  import avatar4 from '../../assets/images/avatars/4.jpg'
-  import avatar5 from '../../assets/images/avatars/5.jpg'
-  import avatar6 from '../../assets/images/avatars/6.jpg'
-  import WidgetsBrand from '../widgets/WidgetsBrand'
-  import { CChartBar, CChartLine } from '@coreui/react-chartjs'
-  const Dashboard = () => {
-    const progressExample = [
-      { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
-      { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
-      { title: 'Pageviews', value: '78.706 Views', percent: 60, color: 'warning' },
-      { title: 'New Users', value: '22.123 Users', percent: 80, color: 'danger' },
-      { title: 'Bounce Rate', value: 'Average Rate', percent: 40.15, color: 'primary' },
-    ]
-    const progressGroupExample1 = [
-      { title: 'Monday', value1: 34, value2: 78 },
-      { title: 'Tuesday', value1: 56, value2: 94 },
-      { title: 'Wednesday', value1: 12, value2: 67 },
-      { title: 'Thursday', value1: 43, value2: 91 },
-      { title: 'Friday', value1: 22, value2: 73 },
-      { title: 'Saturday', value1: 53, value2: 82 },
-      { title: 'Sunday', value1: 9, value2: 69 },
-    ]
-  
-    const progressGroupExample2 = [
-      { title: 'Male', icon: cilUser, value: 53 },
-      { title: 'Female', icon: cilUserFemale, value: 43 },
-    ]
-  
-    const progressGroupExample3 = [
-      { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
-      { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
-      { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
-      { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
-    ]
-  
-    const tableExample = [
-      {
-        avatar: { src: avatar1, status: 'success' },
-        user: {
-          name: 'Yiorgos Avraamu',
-          new: true,
-          registered: 'Jan 1, 2023',
-        },
-        country: { name: 'USA', flag: cifUs },
-        usage: {
-          value: 50,
-          period: 'Jun 11, 2023 - Jul 10, 2023',
-          color: 'success',
-        },
-        payment: { name: 'Mastercard', icon: cibCcMastercard },
-        activity: '10 sec ago',
-      },
-      {
-        avatar: { src: avatar2, status: 'danger' },
-        user: {
-          name: 'Avram Tarasios',
-          new: false,
-          registered: 'Jan 1, 2023',
-        },
-        country: { name: 'Brazil', flag: cifBr },
-        usage: {
-          value: 22,
-          period: 'Jun 11, 2023 - Jul 10, 2023',
-          color: 'info',
-        },
-        payment: { name: 'Visa', icon: cibCcVisa },
-        activity: '5 minutes ago',
-      },
-      {
-        avatar: { src: avatar3, status: 'warning' },
-        user: { name: 'Quintin Ed', new: true, registered: 'Jan 1, 2023' },
-        country: { name: 'India', flag: cifIn },
-        usage: {
-          value: 74,
-          period: 'Jun 11, 2023 - Jul 10, 2023',
-          color: 'warning',
-        },
-        payment: { name: 'Stripe', icon: cibCcStripe },
-        activity: '1 hour ago',
-      },
-      {
-        avatar: { src: avatar4, status: 'secondary' },
-        user: { name: 'Enéas Kwadwo', new: true, registered: 'Jan 1, 2023' },
-        country: { name: 'France', flag: cifFr },
-        usage: {
-          value: 98,
-          period: 'Jun 11, 2023 - Jul 10, 2023',
-          color: 'danger',
-        },
-        payment: { name: 'PayPal', icon: cibCcPaypal },
-        activity: 'Last month',
-      },
-      {
-        avatar: { src: avatar5, status: 'success' },
-        user: {
-          name: 'Agapetus Tadeáš',
-          new: true,
-          registered: 'Jan 1, 2023',
-        },
-        country: { name: 'Spain', flag: cifEs },
-        usage: {
-          value: 22,
-          period: 'Jun 11, 2023 - Jul 10, 2023',
-          color: 'primary',
-        },
-        payment: { name: 'Google Wallet', icon: cibCcApplePay },
-        activity: 'Last week',
-      },
-      {
-        avatar: { src: avatar6, status: 'danger' },
-        user: {
-          name: 'Friderik Dávid',
-          new: true,
-          registered: 'Jan 1, 2023',
-        },
-        country: { name: 'Poland', flag: cifPl },
-        usage: {
-          value: 43,
-          period: 'Jun 11, 2023 - Jul 10, 2023',
-          color: 'success',
-        },
-        payment: { name: 'Amex', icon: cibCcAmex },
-        activity: 'Last week',
-      },
-    ]
-    return (
-      <>
-    
-        <WidgetsDropdown className="mb-4" />
-        <CCard className="mb-4 mt-5">
-        <CCardBody>
-            <CRow>
-              <CCol sm={5}>
-                <h4 id="traffic" className="card-title mb-0">
-                  Traffic
-                </h4>
-                <div className="small text-body-secondary">January - July 2023</div>
-              </CCol>
-              <CCol sm={7} className="d-none d-md-block ">
-                <CButton color="primary" className="float-end">
-                  <CIcon icon={cilCloudDownload} />
-                </CButton>
-                <CButtonGroup  className="float-end me-3">
-                  {['Day', 'Month', 'Year'].map((value) => (
-                    <CButton
-                      color="outline-secondary"
-                      key={value}
-                      className="mx-0"
-                      active={value === 'Month'}
-                    >
-                      {value}
-                    </CButton>
-                  ))}
-                </CButtonGroup>
-              </CCol>
-            </CRow>
-            <MainChart />
-          </CCardBody>
-          <CCardFooter>
-          <CRow
-            xs={{ cols: 1, gutter: 4 }}
-            sm={{ cols: 2 }}
-            lg={{ cols: 4 }}
-            xl={{ cols: 5 }}
-            className="mb-2 text-center"
-          >
-            {progressExample.map((item, index, items) => (
-              <CCol
-                // className={classNames({
-                //   'd-none d-xl-block': index + 1 === items.length,
-                // })}
-                key={index}
-              >
-                <div className="text-body-secondary">{item.title}</div>
-                <div className="fw-semibold text-truncate">
-                  {item.value} ({item.percent}%)
-                </div>
-                <CProgress thin className="mt-2" color={item.color} value={item.percent} />
-              </CCol>
-            ))}
-            </CRow>
-          </CCardFooter>
-        </CCard>
-        <WidgetsBrand className="mb-4" withCharts />
-        <CRow>
+import React, { useState } from 'react'
+import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import SaleByCategory from '../pages/Ui/Sale'
+import {
+  CAvatar,
+  CButton,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCardFooter,
+  CCol,
+  CRow,
+  CTable,
+  CTableBody,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+
+import avatar1 from '../../assets/images/avatars/OIP (2).jpg'
+import avatar2 from '../../assets/images/avatars/OIP (2).jpg'
+import avatar3 from '../../assets/images/avatars/OIP (2).jpg'
+import avatar4 from '../../assets/images/avatars/OIP (2).jpg'
+import avatar5 from '../../assets/images/avatars/OIP (2).jpg'
+import avatar6 from '../../assets/images/avatars/OIP (2).jpg'
+import WidgetsBrand from '../widgets/WidgetsBrand'
+
+const Dashboard = () => {
+  document.title = 'Dashboard'
+  const tableExample = [
+    { avatar: { src: avatar1, status: 'success' }, user: { name: 'Product1' }, usage: { value: 50 } },
+    { avatar: { src: avatar2, status: 'danger' }, user: { name: 'Product2' }, usage: { value: 22 } },
+    { avatar: { src: avatar3, status: 'warning' }, user: { name: 'Product3' }, usage: { value: 74 } },
+    { avatar: { src: avatar4, status: 'secondary' }, user: { name: 'Product4' }, usage: { value: 98 } },
+    { avatar: { src: avatar5, status: 'success' }, user: { name: 'Product5' }, usage: { value: 22 } },
+    { avatar: { src: avatar6, status: 'danger' }, user: { name: 'Product6' }, usage: { value: 43 } },
+    { avatar: { src: avatar1, status: 'success' }, user: { name: 'Product7' }, usage: { value: 50 } },
+    { avatar: { src: avatar2, status: 'danger' }, user: { name: 'Product8' }, usage: { value: 22 } },
+    { avatar: { src: avatar3, status: 'warning' }, user: { name: 'Product9' }, usage: { value: 74 } },
+    { avatar: { src: avatar4, status: 'secondary' }, user: { name: 'Product10' }, usage: { value: 98 } },
+  ]
+
+  const itemsPerPage = 5
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // Calculate indices for slicing the array
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = tableExample.slice(indexOfFirstItem, indexOfLastItem)
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage)
+  }
+
+  const totalPages = Math.ceil(tableExample.length / itemsPerPage)
+
+  return (
+    <>
+      <WidgetsDropdown className="mb-4" />
+      <div className='md:flex max-md:flex-col w-[100%] gap-4 '>
+ <div className='md:w-[25%] flex flex-col gap-4'>
+ <WidgetsBrand className="mb-4" withCharts /> 
+
+ </div> 
+<div className='md:w-[70%] max-md:w-[100%]  mb-4 md:flex max-md:flex-col gap-4'>
+  <SaleByCategory/>
+  <div className='md:w-[60%]'>
+  <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Traffic {' & '} Sales</CCardHeader>
+            <CCardHeader className='text-start font-bold text-xl' >Top Products</CCardHeader>
             <CCardBody>
-              <CRow>
-                <CCol xs={12} md={6} xl={6}>
-                  <CRow>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-info py-1 px-3">
-                        <div className="text-body-secondary text-truncate small">New Clients</div>
-                        <div className="fs-5 fw-semibold">9,123</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-danger py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">
-                          Recurring Clients
-                        </div>
-                        <div className="fs-5 fw-semibold">22,643</div>
-                      </div>
-                    </CCol>
-                  </CRow>
-                  <hr className="mt-0" />
-                  {progressGroupExample1.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-prepend">
-                        <span className="text-body-secondary small">{item.title}</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="info" value={item.value1} />
-                        <CProgress thin color="danger" value={item.value2} />
-                      </div>
-                    </div>
-                  ))}
-                </CCol>
-                <CCol xs={12} md={6} xl={6}>
-                  <CRow>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-warning py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Pageviews</div>
-                        <div className="fs-5 fw-semibold">78,623</div>
-                      </div>
-                    </CCol>
-                    <CCol xs={6}>
-                      <div className="border-start border-start-4 border-start-success py-1 px-3 mb-3">
-                        <div className="text-body-secondary text-truncate small">Organic</div>
-                        <div className="fs-5 fw-semibold">49,123</div>
-                      </div>
-                    </CCol>
-                  </CRow>
-
-                  <hr className="mt-0" />
-
-                  {progressGroupExample2.map((item, index) => (
-                    <div className="progress-group mb-4" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">{item.value}%</span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="warning" value={item.value} />
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="mb-5"></div>
-
-                  {progressGroupExample3.map((item, index) => (
-                    <div className="progress-group" key={index}>
-                      <div className="progress-group-header">
-                        <CIcon className="me-2" icon={item.icon} size="lg" />
-                        <span>{item.title}</span>
-                        <span className="ms-auto fw-semibold">
-                          {item.value}{' '}
-                          <span className="text-body-secondary small">({item.percent}%)</span>
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <CProgress thin color="success" value={item.percent} />
-                      </div>
-                    </div>
-                  ))}
-                </CCol>
-              </CRow>
-
               <br />
-
               <CTable align="middle" className="mb-0 border" hover responsive>
-                <CTableHead className="text-nowrap">
-                  <CTableRow>
-                    <CTableHeaderCell className="bg-body-tertiary text-center">
-                      <CIcon icon={cilPeople} />
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">User</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Country
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Usage</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Payment Method
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Activity</CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
+                
                 <CTableBody>
-                  {tableExample.map((item, index) => (
+                  {tableExample.slice(0, 7).map((item, index) => (
                     <CTableRow v-for="item in tableItems" key={index}>
-                      <CTableDataCell className="text-center">
-                        <CAvatar size="md" src={item.avatar.src} status={item.avatar.status} />
+                      
+                      <CTableDataCell className="text-center w-[60px] ">
+                      <div className='w-[100px] max-xl:w-[50px] flex items-center justify-center'>
+
+                        <img className=" h-[50px] max-xl:w-[50px] object-cover rounded" src={item.avatar.src} status={item.avatar.status} />
+                        </div>
                       </CTableDataCell>
                       <CTableDataCell>
                         <div>{item.user.name}</div>
                         <div className="small text-body-secondary text-nowrap">
-                          <span>{item.user.new ? 'New' : 'Recurring'}</span> | Registered:{' '}
-                          {item.user.registered}
+                          <span>$20</span>
+                         
                         </div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.country.flag} title={item.country.name} />
                       </CTableDataCell>
                       <CTableDataCell>
                         <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">{item.usage.value}%</div>
-                          <div className="ms-3">
-                            <small className="text-body-secondary">{item.usage.period}</small>
-                          </div>
+                          <div className="fw-semibold">${item.usage.value}</div>
                         </div>
-                        <CProgress thin color={item.usage.color} value={item.usage.value} />
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={item.payment.icon} />
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="small text-body-secondary text-nowrap">Last login</div>
-                        <div className="fw-semibold text-nowrap">{item.activity}</div>
                       </CTableDataCell>
                     </CTableRow>
                   ))}
@@ -380,166 +105,94 @@
           </CCard>
         </CCol>
       </CRow>
-        <CRow>
-        <CCol xs={6}>
-          <CWidgetStatsE
-            className="mb-3"
-            chart={
-              <CChartBar
-                className="mx-auto"
-                style={{ height: '40px', width: '80px' }}
-                data={{
-                  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M'],
-                  datasets: [
-                    {
-                      backgroundColor: '#321fdb',
-                      borderColor: 'transparent',
-                      borderWidth: 1,
-                      data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
-                    },
-                  ],
-                }}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  scales: {
-                    x: {
-                      display: false,
-                    },
-                    y: {
-                      display: false,
-                    },
-                  },
-                }}
-              />
-            }
-            title="Widget title"
-            value="89.9%"
-          />
-        </CCol>
-        <CCol xs={6}>
-          <CWidgetStatsE
-            className="mb-3"
-            chart={
-              <CChartLine
-                className="mx-auto"
-                style={{ height: '40px', width: '80px' }}
-                data={{
-                  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M'],
-                  datasets: [
-                    {
-                      backgroundColor: 'transparent',
-                      borderColor: '#321fdb',
-                      borderWidth: 2,
-                      data: [41, 78, 51, 66, 74, 42, 89, 97, 87, 84, 78, 88, 67, 45, 47],
-                    },
-                  ],
-                }}
-                options={{
-                  maintainAspectRatio: false,
-                  elements: {
-                    line: {
-                      tension: 0.4,
-                    },
-                    point: {
-                      radius: 0,
-                    },
-                  },
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  scales: {
-                    x: {
-                      display: false,
-                    },
-                    y: {
-                      display: false,
-                    },
-                  },
-                }}
-              />
-            }
-            title="Widget title"
-            value="89.9%"
-          />
-        </CCol>
-
-      </CRow>
+      </div>
+        </div>
+        </div>
 
       <CRow>
-          <CCol xs={6}>
-            <CWidgetStatsF
-              className="mb-3"
-              color="primary"
-              icon={<CIcon icon={cilChartPie} height={24} />}
-              title="Widget title"
-              value="89.9%"
-            />
-          </CCol>
-          <CCol xs={6}>
-            <CWidgetStatsF
-              className="mb-3"
-              color="warning"
-              icon={<CIcon icon={cilChartPie} height={24} />}
-              title="Widget title"
-              value="89.9%"
-            />
-          </CCol>
-        </CRow>
-        <CRow>
-          <CCol xs={6}>
-            <CWidgetStatsF
-              className="mb-3"
-              color="primary"
-              icon={<CIcon icon={cilChartPie} height={24} />}
-              padding={false}
-              title="Widget title"
-              value="89.9%"
-            />
-          </CCol>
-          <CCol xs={6}>
-            <CWidgetStatsF
-              className="mb-3"
-              color="warning"
-              icon={<CIcon icon={cilChartPie} height={24} />}
-              padding={false}
-              title="Widget title"
-              value="89.9%"
-            />
-          </CCol>
-        </CRow>
-        <CRow>
-          <CCol xs={6}>
-            <CWidgetStatsF
-              className="mb-3"
-              color="primary"
-             
-              icon={<CIcon icon={cilChartPie} height={24} />}
-              title="Widget title"
-              value="89.9%"
-            />
-          </CCol>
-          <CCol xs={6}>
-            <CWidgetStatsF
-              className="mb-3"
-              color="warning"
-             
-              icon={<CIcon icon={cilChartPie} height={24} />}
-              title="Widget title"
-              value="89.9%"
-            />
-          </CCol>
-        </CRow>
+        <CCol xs>
+          <CCard className="mb-4">
+            <CCardHeader className="text-start font-bold text-xl">Recent Orders</CCardHeader>
+            <CCardBody>
+              <CTable align="middle" className="mb-0 border" hover responsive>
+                <CTableHead className="text-nowrap">
+                  <CTableRow>
+                    <CTableHeaderCell className="bg-body-tertiary font-bold cursor-pointer text-center">ProductID</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary text-center">Image</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">Product Name</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary text-center">Order Id</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">Price</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary text-center">Quantity</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">Sale</CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+                <CTableBody>
+                  {currentItems.map((item, index) => (
+                    <CTableRow key={index}>
+                      <CTableDataCell className="text-center cursor-pointer font-semibold">
+                        #PRO{index + 1}
+                      </CTableDataCell>
+                      <CTableHeaderCell className="text-center">
+                        <div className="w-[100px] max-xl:w-[50px] flex items-center justify-center">
+                          <img className="h-[70px] max-xl:w-[50px] object-cover rounded" src={item.avatar.src} status={item.avatar.status} />
+                        </div>
+                      </CTableHeaderCell>
+                      <CTableDataCell>{item.user.name}</CTableDataCell>
+                      <CTableDataCell className="text-center">
+                        <div className="flex items-center justify-center">
+                          <div className="border-start border-[1px] border-gray-300 w-fit rounded-full text-black bg-[#fdd701af] py-1 px-3">
+                            <div className="text-sm font-semibold cursor-pointer">#ORD{index + 100}</div>
+                          </div>
+                        </div>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <div className="d-flex justify-content-between text-nowrap">
+                          <div className="fw-semibold">${item.usage.value}</div>
+                        </div>
+                      </CTableDataCell>
+                      <CTableDataCell className="text-center">
+                        <div className="text-sm font-semibold">10</div>
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <div className="text-sm font-semibold">$28,672.36</div>
+                      </CTableDataCell>
+                    </CTableRow>
+                  ))}
+                </CTableBody>
+              </CTable>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
 
-        {/* <Widgets/> */}
-        </>
-      )
-    }
+      {/* Pagination */}
+      <div className="flex justify-center mt-4">
+        <CButton
+          className="me-2"
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          <FaArrowLeft />
+        </CButton>
+        {[...Array(totalPages)].map((_, pageIndex) => (
+          <CButton
+            key={pageIndex}
+            className={`mx-1 ${currentPage === pageIndex + 1 ? 'bg-primary text-white' : ''}`}
+            onClick={() => handlePageChange(pageIndex + 1)}
+          >
+            {pageIndex + 1}
+          </CButton>
+        ))}
+        <CButton
+          className="ms-2"
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          <FaArrowRight />
+        </CButton>
+      </div>
+    </>
+  )
+}
 
-  export default Dashboard
+export default Dashboard

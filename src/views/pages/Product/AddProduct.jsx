@@ -10,7 +10,10 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import ProductTable from '../Ui/ProductTabel'
 import View from '../Ui/View'
 import ProductImageList from '../Ui/ProductImageList'
+import { useSelector } from 'react-redux'
 export default function AddProduct() {
+    document.title = 'Add Product'
+    const {theme} = useSelector((state)=>state.theme);
     const [value, setValues] = useState('');
     const [images, setImages] = useState([]);
     const { category, loading, error, getCategory } = useGetCategory()
@@ -343,14 +346,14 @@ useEffect(()=>{
     }
    console.log(attributeValues)
     return (
-        <div className='w-[100%] h-[100%] flex px-3 justify-center items-center bg-slate-200'>
+        <div className={`w-[100%] h-[100%] flex px-3 justify-center items-center ${theme === 'dark' ? 'bg-slate-200' : 'bg-gray-800'}`}>
             <ToastContainer />
             <div className='w-[100%] flex flex-col gap-3 h-[100%]'>
                 <div className='flex pt-2  justify-start px-4  gap-2 w-[100%] items-center'>
                     <IoMdCart className='text-4xl font-semibold' />
                     <h1 className='text-3xl font-normal'> Add Product</h1>
                 </div>
-                {show && <div className='w-[100%] bg-white p-4 flex flex-col  justify-center items-start'>
+                {show && <div className={`w-[100%] ${theme === 'dark' ? 'bg-white' : 'bg-[#212631]'} p-4 flex flex-col  justify-center items-start`}>
                     <form ref={formRef} onSubmit={isEdit ? handleEditSubmit : handleSubmit} className='w-[100%]' encType='multipart/form-data'>
                         <div className='w-[100%] mb-3 text-[#252525] text-2xl font-semibold  flex gap-1 items-center'>
                             <FaCubes />  <span>Product Details</span>
@@ -360,25 +363,25 @@ useEffect(()=>{
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Product Name <span className='text-red-500'>*</span>
                                 </label>
-                                <input type='text' value={productName} onChange={(e) => setProductName(e.target.value)} name='productName' id='productName' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required />
+                                <input type='text' value={productName} onChange={(e) => setProductName(e.target.value)} name='productName' id='productName' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Meta Title
                                 </label>
-                                <input type='text' value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} name='metaTitle' id='metaTitle' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' />
+                                <input type='text' value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} name='metaTitle' id='metaTitle' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Meta Description
                                 </label>
-                                <input type='text' value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} name='metaDescription' id='metaDescription' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' />
+                                <input type='text' value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} name='metaDescription' id='metaDescription' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Meta Keyword
                                 </label>
-                                <input type='text' value={metaKeyword} onChange={(e) => setMetaKeyword(e.target.value)} name='metaKeyword' id='metaKeyword' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' />
+                                <input type='text' value={metaKeyword} onChange={(e) => setMetaKeyword(e.target.value)} name='metaKeyword' id='metaKeyword' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} />
                             </div>
                         </div>
                         <div className='w-[100%] mb-3 mt-3 text-[#252525] text-2xl font-semibold  flex gap-1 items-center'>
@@ -389,13 +392,13 @@ useEffect(()=>{
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Product Price  <span className='text-red-500'>*</span>
                                 </label>
-                                <input type='number' value={productPrice} onChange={(e) => setProductPrice(e.target.value)} name='productPrice' id='productPrice' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required />
+                                <input type='number' value={productPrice} onChange={(e) => setProductPrice(e.target.value)} name='productPrice' id='productPrice' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Discount Percentage  <span className='text-red-500'>*</span>
                                 </label>
-                                <input type='number' value={discountPercentage} onChange={(e) => setDiscountPercentage(e.target.value)} name='discountPercentage' id='discountPercentage' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required />
+                                <input type='number' value={discountPercentage} onChange={(e) => setDiscountPercentage(e.target.value)} name='discountPercentage' id='discountPercentage' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
@@ -417,7 +420,7 @@ useEffect(()=>{
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Product CashPrice  <span className='text-red-500'>*</span>
                                 </label>
-                                <input type='number' value={cashPrice} onChange={(e) => setCashPrice(e.target.value)} name='cashPrice' id='cashPrice' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required />
+                                <input type='number' value={cashPrice} onChange={(e) => setCashPrice(e.target.value)} name='cashPrice' id='cashPrice'className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required />
                             </div>
 
                         </div>
@@ -429,7 +432,7 @@ useEffect(()=>{
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Product Category  <span className='text-red-500'>*</span>
                                 </label>
-                                <select type='text' value={categoryId} onChange={(e) => setCategoryId(e.target.value)} name='productCategory' id='productCategory' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required>
+                                <select type='text' value={categoryId} onChange={(e) => setCategoryId(e.target.value)} name='productCategory' id='productCategory' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required>
                                     <option value=''>Select Category</option>
                                     {!loading && category?.map((item) => (
                                         <option key={item.CategoryID} value={item.CategoryID}>{item.CategoryName}</option>
@@ -440,7 +443,7 @@ useEffect(()=>{
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Product Sub Category  <span className='text-red-500'>*</span>
                                 </label>
-                                <select type='text' value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)} name='productSubCategory' id='productSubCategory' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required>
+                                <select type='text' value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)} name='productSubCategory' id='productSubCategory' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required>
                                     <option value=''>Select Sub Category</option>
                                     {!subCategoryLoading && subCategory?.map((item) => (
                                         <option value={item.CategoryID}>{item.CategoryName}</option>
@@ -451,7 +454,7 @@ useEffect(()=>{
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Subcategory lv2 <span className='text-red-500'>*</span>
                                 </label>
-                                <select type='text' value={subCategoryLv2Id} onChange={(e) => setSubCategoryLv2Id(e.target.value)} name='subcategoryLv2' id='subcategoryLv2' className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required>
+                                <select type='text' value={subCategoryLv2Id} onChange={(e) => setSubCategoryLv2Id(e.target.value)} name='subcategoryLv2' id='subcategoryLv2' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required>
                                     <option value=''>Select Subcategory lv2</option>
                                     {!subCategoryLv2Loading && subCategoryLv2?.map((item) => (
                                         <option value={item.CategoryID}>{item.CategoryName}</option>
@@ -472,7 +475,7 @@ useEffect(()=>{
                                         <select type='text'
                                             onChange={(e) => handleChange(item.attribute_name, e.target.value)}
                                             defaultValue={attributeValue[item.attribute_name] || ''}
-                                            name={item.attribute_name} id={item.attribute_name} className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required >
+                                            name={item.attribute_name} id={item.attribute_name} className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required >
                                             <option value=''>Select Attribute</option>
                                             {item?.value?.map((item) => (
                                                 <option key={item.valueId} value={item.valueId}>{item.value}</option>
@@ -493,11 +496,11 @@ useEffect(()=>{
                         </div>
                         {!isEdit && <div className='w-[30%] flex flex-col gap-4 justify-start items-start'>
                             <label htmlFor='image' name='productImage' id='productImage' className='text-lg mt-3 -mb-3 font-semibold'>Image <span className='text-red-500'>*</span></label>
-                            <input type="file" onChange={(e) => setProductImage(e.target.files[0])} accept='image/*' name="image" id="image" className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required />
+                            <input type="file" onChange={(e) => setProductImage(e.target.files[0])} accept='image/*' name="image" id="image" className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} required />
                         </div>}
                         {isEdit && <div className='w-[30%] flex flex-col gap-4 justify-start items-start'>
                             <label htmlFor='image' name='productImage' id='productImage' className='text-lg mt-3 -mb-3 font-semibold'>New Image <span className='text-red-500'>*</span></label>
-                            <input type="file" onChange={(e) => setNewImage(e.target.files[0])} accept='image/*' name="image" id="image" className='w-[100%] h-[55px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' />
+                            <input type="file" onChange={(e) => setNewImage(e.target.files[0])} accept='image/*' name="image" id="image" className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme !== 'dark' ? 'border-gray-600 bg-gray-600' : 'border-white'} rounded-md`} />
                         </div>}
                         {isEdit && <div className='w-[100%] flex mt-3 flex-col gap-3 justify-start items-start '>
                             <label htmlFor="productImage" className='text-lg mt-3 -mb-3 font-semibold'>Product Image</label>

@@ -7,6 +7,7 @@ import DataTable from '../../Ui/Datatable';
 import { TbRuler } from 'react-icons/tb';
 import { useDispatch, useSelector } from 'react-redux';
 export default function Faq() {
+  document.title = 'FAQs'
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(null); 

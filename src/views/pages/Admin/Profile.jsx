@@ -12,6 +12,7 @@ const fetchAdminData = async (Aid) => {
     return response.data.result[0];
 }
 export default function Profile() {
+    document.title = 'Admin Profile'
     const Aid = Cookies.get('Aid')
     const [user,setUser] = useState(null)
     const queryClient = useQueryClient()

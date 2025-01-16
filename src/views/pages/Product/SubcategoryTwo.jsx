@@ -5,6 +5,7 @@ import { FaSitemap } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';                
 import DataTable from '../Ui/Datatable';
 export default function SubcategoryTwo() {
+    document.title = 'Subcategory Level2'
     const formref = useRef(null);
     const [isEdit, setIsEdit] = useState(false);
     const [categoryId, setCategoryId] = useState('');

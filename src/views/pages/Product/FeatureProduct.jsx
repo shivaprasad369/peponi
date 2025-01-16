@@ -3,8 +3,10 @@ import { FaList } from "react-icons/fa";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 export default function FeatureProduct() {
+  document.title = 'Featured Product'
   const [selectedItems, setSelectedItems] = useState([]);
   const [category, setCategory] = useState(0);
   const [featuredProduct, setFeaturedProduct] = useState([]);
@@ -12,6 +14,7 @@ export default function FeatureProduct() {
   const [options, setOptions] = useState([]);
   const queryClient = useQueryClient();
   const [focus,setFocus]=useState(false);
+  const {theme} = useSelector((state)=>state.theme);
   const { data: products, isLoading, isError, error } = useQuery({
     queryKey: ["products-feature", category],
     queryFn: async () => {
@@ -124,12 +127,12 @@ export default function FeatureProduct() {
   }, [category]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-slate-200 justify-start items-start">
+    <div className={`w-full h-full flex flex-col ${theme === 'dark' ? 'bg-[#373e4dbe] text-white' : 'bg-gray-800 text-white'} justify-start items-start`}>
       <div className="flex mt-2 justify-start px-4 my-3 gap-2 w-full items-center">
         <FaList className="text-2xl font-semibold" />
         <h1 className="text-3xl font-normal">Manage Featured Products</h1>
       </div>
-      <div className="w-[70%] bg-white p-4 flex flex-col justify-center items-start">
+      <div className={`w-[70%] ${theme !== 'dark' ? 'bg-[#212631]' : 'bg-white text-black'} p-4 flex flex-col justify-center items-start`}>
         {/* Category Selection */}
         <div className="w-full flex flex-col gap-2 justify-start items-start">
           <label htmlFor="ProductName" className="text-xl font-semibold">
@@ -137,7 +140,7 @@ export default function FeatureProduct() {
           </label>
           <select
             onChange={(e) =>{ setCategory(e.target.value),queryClient.invalidateQueries({ queryKey: ["products-feature"] })}}
-            className="w-full h-[50px] outline-none border-2 border-gray-300 rounded-md p-2"
+            className={`"w-[100%] h-[50px] outline-none border-2 border-gray-300 ${theme !== 'dark' ? 'bg-white text-black' : 'bg-gray-800'} rounded-md p-2`}
           >
             <option value="">Select Category</option>
             <option value={1}>Featured Product</option>
@@ -151,7 +154,7 @@ export default function FeatureProduct() {
             <label htmlFor="ProductName" className="text-xl mt-4 font-semibold">
               Products <span className="text-red-500">*</span>
         </label>
-        <div className="w-full gap-4 mt-2 border-2 border-gray-300 mb-4 flex justify-start items-center flex-wrap">
+        <div className={`w-full gap-4 mt-2 ${theme !== 'dark' ? 'border-2 border-gray-300 text-black' : 'border-2 border-white text-white'} mb-4 flex justify-start items-center flex-wrap`}>
           {/* DragDropContext for selectedItems */}
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="selectedItems">
@@ -206,8 +209,8 @@ export default function FeatureProduct() {
           <select
             onChange={handleSelectChange}
             value=""
-            className="inline-block w-[100%] m-2 border-2 border-gray-300 rounded-md p-2 outline-none"
-          >
+              className={`inline-block w-[100%] m-2 border-2 border-gray-300 ${theme !== 'dark' ? 'bg-white text-black' : 'bg-gray-800'} rounded-md p-2 outline-none`}
+            >
             <option value="" disabled>
               Select an item
             </option>
@@ -221,12 +224,12 @@ export default function FeatureProduct() {
         </div>
 
         {/* Sorting Note */}
-        <span className="text-sm mt-4 text-gray-500 font-bold tracking-wide">
+        <span className={`text-sm mt-4 ${theme === 'dark' ? 'text-gray-500' : 'text-white'} font-bold tracking-wide`}>
           Note: Please drag and drop best-selling products to sort.
         </span>
 
         {/* Sorting Section for Selected Items */}
-        <div className="w-full gap-2 mt-2 flex justify-start items-center flex-col">
+        <div className={`w-full gap-2 mt-2 flex justify-start items-center flex-col ${theme !== 'dark' ? 'text-black' : 'text-white'}`}>
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="selectedItemsSorted">
               {(provided) => (

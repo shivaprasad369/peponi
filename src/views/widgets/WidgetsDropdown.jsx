@@ -1,24 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-
-import {
-  CRow,
-  CCol,
-  CDropdown,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownToggle,
-  CWidgetStatsA,
-} from '@coreui/react'
 import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine } from '@coreui/react-chartjs'
-import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 import { FaQuestionCircle, FaRegNewspaper, FaUserAlt } from 'react-icons/fa'
 import { MdManageAccounts, MdOutlineUnsubscribe } from 'react-icons/md'
 import { RiLockPasswordFill } from 'react-icons/ri'
-
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)
   const widgetChartRef2 = useRef(null)
@@ -45,42 +31,42 @@ const WidgetsDropdown = (props) => {
     <>
     <div className='w-[100%] mb-10 grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-4'>
       {[{
-        color:`bg-[#167c81]`,
+        color:`bg-[#f80cff]`,
         title:'Blogs',
         href:'/admin/account/blogs',
         icon:FaRegNewspaper,
         disc:'View blogs'
       },
       {
-        color:`bg-[#2870ad]`,
+        color:`bg-[#0c8fff]`,
         title:'News Letter',
         href:'/admin/account/newsletter',
         icon:MdOutlineUnsubscribe,
         disc:'View newsletter'
       },
       {
-        color:`bg-[#36b7e3]`,
+        color:`bg-[#00bbfb]`,
         title:'Profile',
         href:'/admin/account/profile',
         icon:FaUserAlt  ,
         disc:'View profile'
       },
       {
-        color:`bg-[#ee4a69]`,
+        color:`bg-[#f9395d]`,
         title:'Manage FAQ',
         href:'/admin/account/faq',
         icon:FaQuestionCircle,
         disc:'Manage FAQ'
       },
       {
-        color:`bg-[#673d8b]`,
+        color:`bg-[#9636e9]`,
         title:'Manage CMS',
         href:'/admin/account/cms',
         icon:MdManageAccounts,
         disc:'Manage CMS'
       },
 {
-  color:`bg-[#70808f]`,
+  color:`bg-[#2d2178]`,
   title:'Change Password',
   href:'/admin/account/change-password',
   icon:RiLockPasswordFill,
@@ -95,16 +81,16 @@ const WidgetsDropdown = (props) => {
             </div>
            <div className='w-[70%] h-[100%] flex  flex-col items-start justify-start pl-3'>
             <h1 className='text-xl tracking-wider capitalize leading-[1.5rem] no-underline text-white font-semibold'>{data.title}</h1>
-        <Link to={data.href}>
+        <a className='no-underline' href={data.href}>
             <span className='text-sm tracking-wider italic capitalize no-underline text-white'>{data.disc}</span>
-      </Link>
+      </a>
            </div>
           </div>
       </div>
       )}
      
     </div>
-    <CRow className={props.className} xs={{ gutter: 4 }}>
+    {/* <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsA
           color="primary"
@@ -450,7 +436,7 @@ const WidgetsDropdown = (props) => {
           }
         />
       </CCol>
-    </CRow>
+    </CRow> */}
     </>
   )
 }

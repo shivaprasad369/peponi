@@ -10,6 +10,7 @@ import { FaSitemap } from 'react-icons/fa';
 import DataTable from '../Ui/Datatable';
 
 export default function Blogs() {
+    document.title = 'Blogs'
     const [value, setValues] = useState('');
     const queryClient = useQueryClient()
   const [isEdit,setIsEdit] = useState(false)
@@ -75,6 +76,7 @@ export default function Blogs() {
   };
   
   const handleEditSubmit = async (data) => {
+
     const formData = new FormData()
     formData.append('title',data.title)
     formData.append('author',data.author)

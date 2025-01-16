@@ -6,6 +6,7 @@ import { useQuery,useQueryClient } from '@tanstack/react-query';
 import DataTable from '../Ui/Datatable';
 
 export default function Category() {
+    document.title = 'Category'
     const [categoryName, setCategoryName] = useState('');
     const [metaTitle, setMetaTitle] = useState('');
     const [metaKeywords, setMetaKeywords] = useState('');

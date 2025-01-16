@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
 export default function ChangePassword() {
+    document.title = 'Change Password'
     const { register, handleSubmit,reset, watch,formState: { errors } } = useForm();
     const theme=useSelector((state)=>state.theme)
     const newPassword = watch('newPassword', ''); 

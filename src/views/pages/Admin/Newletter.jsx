@@ -3,8 +3,7 @@ import DataTable from '../Ui/Datatable'
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useQuery,useQueryClient } from '@tanstack/react-query';
-import * as XLSX from "xlsx";
-import { CSpinner } from '@coreui/react';
+import ExcelJS from 'exceljs';
 import { useSelector } from 'react-redux';
 export default function Newletter() {
         const [users,setUsers]=useState([])
@@ -44,19 +43,30 @@ export default function Newletter() {
             toast.error('Error deleting newsletter')
         }
     }
+
     const handleExport = (data) => {
-        const worksheet = XLSX.utils.json_to_sheet(data);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
-        const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "data.xlsx";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      };
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet('Sheet1');
+      worksheet.columns = [
+          { header: 'ID', key: 'id', width: 10 },
+          { header: 'Name', key: 'name', width: 30 },
+          { header: 'Email', key: 'email', width: 30 }
+      ];
+  
+      data.forEach(item => {
+          worksheet.addRow(item);
+      });
+  
+      workbook.xlsx.writeBuffer().then(buffer => {
+          const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'data.xlsx';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      });
+  };
       if(isLoading){
         return <div className="animate-pulse">
        <div className="h-10 bg-gray-300 rounded w-1/4 mb-2"></div>

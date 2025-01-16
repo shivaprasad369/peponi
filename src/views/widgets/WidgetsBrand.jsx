@@ -4,7 +4,13 @@ import { CWidgetStatsD, CRow, CCol } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cibFacebook, cibLinkedin, cibTwitter, cilCalendar } from '@coreui/icons'
 import { CChart } from '@coreui/react-chartjs'
-
+import { IoIosTrendingUp } from "react-icons/io";
+import SalesChart from '../pages/Ui/SalesChart'
+import { RiMoneyDollarCircleFill, RiShoppingBag4Fill } from 'react-icons/ri'
+import { GrDocument } from 'react-icons/gr'
+import { IoTrendingDownOutline } from "react-icons/io5";
+import { TbUsers } from 'react-icons/tb'
+import Orders from '../pages/Ui/Order'
 const WidgetsBrand = (props) => {
   const chartOptions = {
     elements: {
@@ -35,41 +41,23 @@ const WidgetsBrand = (props) => {
   }
 
   return (
-    <CRow className={props.className} xs={{ gutter: 4 }}>
-      <CCol sm={6} xl={4} xxl={3}>
-        <CWidgetStatsD
-          {...(props.withCharts && {
-            chart: (
-              <CChart
-                className="position-absolute w-100 h-100"
-                type="line"
-                data={{
-                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                  datasets: [
-                    {
-                      backgroundColor: 'rgba(255,255,255,.1)',
-                      borderColor: 'rgba(255,255,255,.55)',
-                      pointHoverBackgroundColor: '#fff',
-                      borderWidth: 2,
-                      data: [65, 59, 84, 84, 51, 55, 40],
-                      fill: true,
-                    },
-                  ],
-                }}
-                options={chartOptions}
-              />
-            ),
-          })}
-          icon={<CIcon icon={cibFacebook} height={52} className="my-4 text-white" />}
-          values={[
-            { title: 'friends', value: '89K' },
-            { title: 'feeds', value: '459' },
-          ]}
-          style={{
-            '--cui-card-cap-bg': '#3b5998',
-          }}
-        />
-      </CCol>
+     <>
+      <div className='grid grid-cols-1 mb-4 h-fit items-center justify-center w-[100%] gap-2'>
+      <SalesChart color="#22C55E" title="Total Sales" 
+      chartIcon={<IoIosTrendingUp className={`text-[#22C55E] text-3xl`}/>}
+      icon={<RiShoppingBag4Fill className='text-2xl text-white'/>}/>
+      <SalesChart color="#FF5200" title="Total Income" 
+      chartIcon={<IoTrendingDownOutline  className='text-2xl text-[#FF5200]'/>}
+      icon={<RiMoneyDollarCircleFill className='text-2xl text-white'/>}/>
+      <SalesChart color="#CBD5E1" title="Orders Paid" 
+chartIcon={<IoIosTrendingUp className={`text-[#CBD5E1] text-3xl`}/>}
+      icon={<GrDocument  className='text-2xl text-white'/>}/>
+      <SalesChart color="#2377FC" title="Total Visitor" 
+chartIcon={<IoIosTrendingUp className={`text-[#2377FC] text-3xl`}/>}
+      icon={<TbUsers  className='text-2xl text-white'/>}/>
+      </div>
+      {/* <Orders/> */}
+    {/* <CRow className={props.className} xs={{ gutter: 4 }}>
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsD
           {...(props.withCharts && {
@@ -104,6 +92,7 @@ const WidgetsBrand = (props) => {
           }}
         />
       </CCol>
+   
       <CCol sm={6} xl={4} xxl={3}>
         <CWidgetStatsD
           {...(props.withCharts && {
@@ -170,7 +159,8 @@ const WidgetsBrand = (props) => {
           ]}
         />
       </CCol>
-    </CRow>
+    </CRow> */}
+    </>
   )
 }
 

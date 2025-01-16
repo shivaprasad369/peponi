@@ -11,11 +11,11 @@ const [loading,setLoading]=useState(true)
 useEffect(()=>{
     if(!isVerified && !isLoading1){
      window.location.replace('/admin');
-    }
-    else{
+    }else{
       setLoading(false)
-      navigate('/admin/account/dashboard')
+
     }
+ 
 },[isVerified,isLoading1])
 // console.log(loading)
   if(isLoading1){

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { use } from 'react';
 import { useSelector } from 'react-redux';
 export default function CMs() {
+  document.title = 'CMS'
   const [value, setValue] = useState('');
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');

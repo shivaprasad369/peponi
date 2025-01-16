@@ -11,6 +11,7 @@ import Attributetabel from '../Ui/Attributetabel'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import NewAttributes from '../Ui/NewAttributes'
 export default function Attribute() {
+    document.title = 'Attribute'
     const {category, loading, error, getCategory} = useGetCategory()
     const {category:subCategory, loading:subCategoryLoading, error:subCategoryError, getCategory:getSubCategory} = useGetCategory()
     const {category:subCategoryLv2, loading:subCategoryLv2Loading, error:subCategoryLv2Error, getCategory:getSubCategoryLv2} = useGetCategory()
