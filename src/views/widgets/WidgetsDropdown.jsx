@@ -31,7 +31,7 @@ const WidgetsDropdown = (props) => {
     <>
     <div className='w-[100%] mb-10 grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-4'>
       {[{
-        color:`bg-[#f80cff]`,
+        color:`bg-[#2d2178]`,
         title:'Blogs',
         href:'/admin/account/blogs',
         icon:FaRegNewspaper,
@@ -58,20 +58,20 @@ const WidgetsDropdown = (props) => {
         icon:FaQuestionCircle,
         disc:'Manage FAQ'
       },
-      {
-        color:`bg-[#9636e9]`,
-        title:'Manage CMS',
-        href:'/admin/account/cms',
-        icon:MdManageAccounts,
-        disc:'Manage CMS'
-      },
-{
-  color:`bg-[#2d2178]`,
-  title:'Change Password',
-  href:'/admin/account/change-password',
-  icon:RiLockPasswordFill,
-  disc:'Change password'
-}
+//       {
+//         color:`bg-[#9636e9]`,
+//         title:'Manage CMS',
+//         href:'/admin/account/cms',
+//         icon:MdManageAccounts,
+//         disc:'Manage CMS'
+//       },
+// {
+//   color:`bg-[#2d2178]`,
+//   title:'Change Password',
+//   href:'/admin/account/change-password',
+//   icon:RiLockPasswordFill,
+//   disc:'Change password'
+// }
       ].map((data,index)=>
       <div key={index} className={`w-[100%] h-[100%] shadow-md rounded-md px-[0.6rem] py-[2rem] ${data.color} `}>
           <div className={  `flex items-center justify-between gap-2  p-2 rounded-md`}>

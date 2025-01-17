@@ -127,7 +127,7 @@ if(isLoading){
                   onChange={handleSelectAll}
                 />
               </th>
-              {Object.keys(data[0] || {})?.filter(key => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID')?.map((key) => (
+              {Object.keys(data[0] || {})?.filter(key => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID' && key !=="description" && key !=='id')?.map((key) => (
                 <th
                   key={key}
                   onClick={() => handleSort(key)}
@@ -150,7 +150,7 @@ if(isLoading){
                       onChange={() => handleRowSelect(row)}
                     />
                   </td>
-                  {Object.entries(row)?.filter(([key]) => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID')?.map(([key, value], i) => (
+                  {Object.entries(row)?.filter(([key]) => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID'&& key !=="description" && key !=='id')?.map(([key, value], i) => (
                     <td key={i} className="p-2 border border-gray-200 items-center justify-center">
                       {key==="Image" || key==="image" ? 
                       <div className="w-[100%] h-[100%] flex items-center justify-center"> 

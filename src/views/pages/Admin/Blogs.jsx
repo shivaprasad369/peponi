@@ -57,6 +57,12 @@ export default function Blogs() {
         }
   }
   const handleDelete = async (id) => {
+    const userConfirmed = confirm("Are you sure you want to delete this blog?");
+    
+    if (!userConfirmed) {
+      return; // Exit if the user cancels
+    }
+  
     setDeleting(true);
     try {
       const response = await axios.delete(`${import.meta.env.VITE_API_URL}/blog/${id}`);
@@ -74,6 +80,7 @@ export default function Blogs() {
       setDeleting(false);
     }
   };
+  
   
   const handleEditSubmit = async (data) => {
 
@@ -102,6 +109,7 @@ export default function Blogs() {
         queryClient.invalidateQueries({ queryKey: ['blogs'] })
         reset()
         setValues('')
+        setValue('shortdescription','')
         setIsEdit(false)
     }
    } catch (error) {
@@ -173,7 +181,7 @@ console.log(getValues('image'))
   }
 
   return (
-    <div className={`p-4 w-full h-full flex-col gap-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} flex justify-center items-center`}>
+    <div className={`px-4 w-full h-full flex-col gap-3 ${theme === 'dark' ? 'bg-transparent text-white' : 'bg-slate-200 text-gray-800 '} flex justify-center items-center`}>
         <ToastContainer/>
         <div className='flex items-center justify-start w-[100%]'>
           <FaSitemap className='text-3xl font-semibold' />
@@ -215,17 +223,20 @@ console.log(getValues('image'))
                 </div>
                 </div>
                 }
-            <label htmlFor='image' className='text-lg mt-3 -mb-3 font-semibold'>Image</label>
+            <label htmlFor='image' className='text-lg mt-3 -mb-3 font-semibold'>{isEdit ? 'New Image' : 'Image'}</label>
            
-          {errors.image && (
+          {/* {errors.image && (
             <span className="text-red-500">Image is required</span>
-          )}
+          )} */}
 
 
-                <input type="file" placeholder='Image' accept='image/*' 
+                {!isEdit && <input type="file" placeholder='Image' accept='image/*' 
             className={`p-2 mt-3 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`} 
-            {...register('image',{required:true})} defaultValue={getValues('image')} />
-            {errors.image && <span className='text-red-500'>Image is required</span>}
+            {...register('image',{required:true})} defaultValue={getValues('image')} />}
+            {isEdit && <input type="file" placeholder='Image' accept='image/*' 
+            className={`p-2 mt-3 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`} 
+            {...register('image',{required:false})} />}
+           
             <div className='flex justify-between pt-1 border-t-[1px] border-gray-300 mt-5 w-full items-center'> 
                 <button type='reset' onClick={()=>{reset(),setValues(''),setIsEdit(false),setValue('shortdescription','')}} className={`capitalize font-semibold border-[1px] tracking-wider  py-2 px-4 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>clear</button>
             {!isEdit && <button type='submit' className={`bg-black text-white p-2 rounded-md mt-3 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>Add Blog</button>}

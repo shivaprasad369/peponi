@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DataTable from '../../Ui/Datatable';
 import { TbRuler } from 'react-icons/tb';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaQuestionCircle, FaSitemap } from 'react-icons/fa';
 export default function Faq() {
   document.title = 'FAQs'
   const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
@@ -41,6 +42,10 @@ const theme=useSelector((state)=>state.theme)
   // Delete FAQ
   const handleDelete = async (id) => {
     try {
+      const confirm=window.confirm('Are you sure you want to delete this FAQ?')
+      if(!confirm){
+        return
+      }
       await axios.delete(`${import.meta.env.VITE_API_URL}/faq/${id}`);
       toast.success("FAQ Deleted Successfully");
       queryClient.invalidateQueries(['faqs']);
@@ -89,11 +94,14 @@ const theme=useSelector((state)=>state.theme)
 
   return (
    
-    <div className={`w-full h-[100%] ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}>
+    <div className={`w-full px-4 h-[100%] ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} flex flex-col gap-5 items-center justify-center`}>
       <ToastContainer autoClose={1000} />
-      <div className={`w-full h-[100%] rounded-lg shadow-lg p-4 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}>
-        <h1 className='text-2xl font-bold mb-4'>Manage FAQs</h1>
-        {(errors.quetion || errors.answer) && <p className='text-red-500'>Question and Answer is required</p>}
+      <div className='flex gap-2 mt-[-2rem] items-center justify-start w-[100%]'>
+        <FaQuestionCircle className='text-3xl font-semibold' />
+        <h1 className='text-4xl font-normal'>Manage FAQs</h1>
+      </div>
+      <div className={`w-full mt-[-2rem] h-[100%] rounded-lg shadow-lg p-4 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}>
+        {(errors.quetion || errors.answer) && <p className='text-red  -500'>Question and Answer is required</p>}
         <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-col ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'} md:p-4 max-md:p-2 rounded '`}>
           <label htmlFor="question" className='font-bold'>FAQ Question *</label>
           <input
@@ -110,7 +118,7 @@ const theme=useSelector((state)=>state.theme)
             className={`w-full p-2 border ${errors.answer ? 'border-red-500' : 'border-gray-300'} outline-none rounded mb-4 ${theme === 'dark' ? 'bg-[#272b38] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`}
           />
           <div className='flex  justify-between'>
-            <button type="reset" onClick={() => reset()} className={`px-4 py-2 border-1 border-gray-300 rounded ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>Clear</button>
+            <button type="reset" onClick={() => {reset(),setIsEdit(false)}} className={`px-4 py-2 border-1 border-gray-300 rounded ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>Clear</button>
             <button type="submit" className='px-4 py-2 bg-blue-500 text-white rounded'>
               {isEdit ? 'Update FAQ' : 'Add FAQ'}
             </button>

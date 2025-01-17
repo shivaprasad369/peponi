@@ -255,8 +255,8 @@ export default function FeatureProduct() {
                               cursor: "grab",
                             }}
                           >
-                            <div className="w-full h-full flex gap-4 overflow-hidden justify-start items-center">
-                              <div className="w-[100px] h-[100px] bg-gray-700 rounded-md">
+                            <div className="w-full h-full text-black flex gap-4 overflow-hidden justify-start items-center">
+                              <div className="w-[100px] h-[100px] bg-gray-700  rounded-md">
                                 <img
                                   src={`${import.meta.env.VITE_API_URL}/${item.Image}`}
                                   alt={item.ProductName}

@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useQuery,useQueryClient } from '@tanstack/react-query';
 import ExcelJS from 'exceljs';
 import { useSelector } from 'react-redux';
+import { FaSitemap } from 'react-icons/fa';
 export default function Newletter() {
         const [users,setUsers]=useState([])
     const apiUrl=import.meta.env.VITE_API_URL;
@@ -30,6 +31,10 @@ export default function Newletter() {
     },[data])
     const handleDelete=(id)=>{
         try{
+          const confirm=window.confirm('Are you sure you want to delete this newsletter?')
+          if(!confirm){
+            return
+          }
             if(id){
                 axios.delete(`${apiUrl}/newsletter/${id}`,{headers})
                 .then((res)=>{
@@ -37,6 +42,7 @@ export default function Newletter() {
                     setUsers(users.filter((user)=>user.id!==id))
                     queryClient.invalidateQueries({queryKey:['newsletter']})
                 })
+                
 
             }
         }catch(err){
@@ -48,8 +54,7 @@ export default function Newletter() {
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet('Sheet1');
       worksheet.columns = [
-          { header: 'ID', key: 'id', width: 10 },
-          { header: 'Name', key: 'name', width: 30 },
+         
           { header: 'Email', key: 'email', width: 30 }
       ];
   
@@ -78,10 +83,13 @@ export default function Newletter() {
   </div>
       }
   return (
-    <div className={`w-full h-full flex ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} px-2  justify-start`}>
+    <div className={`w-full h-full flex ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} px-2  justify-start`}>
         <ToastContainer autoClose={1000}/>
-      <div className={`w-[100%] h-fit ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-4 mt-[3rem] py-[2rem] px-[1rem]  items-start justify-center`}>
-        <h1 className='text-2xl font-bold'>Newsletter Subscribers</h1>
+      <div className={`w-[100%] h-fit ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} flex flex-col gap-4  pb-[2rem] px-[1rem]  items-start justify-center`}>
+        <div className="flex items-center  gap-2 mt-2 justify-start w-[100%]">
+          <FaSitemap className='text-3xl font-semibold' />
+          <h1 className='text-4xl font-normal'>Newsletter Subscribers</h1>
+        </div>
        {users.length>0 ? <DataTable
         data={users}
         title="List Of Newsletter Subscribers"
