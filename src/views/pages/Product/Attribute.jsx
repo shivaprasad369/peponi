@@ -10,6 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import Attributetabel from '../Ui/Attributetabel'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import NewAttributes from '../Ui/NewAttributes'
+import { useSelector } from 'react-redux'
 export default function Attribute() {
     document.title = 'Attribute'
     const {category, loading, error, getCategory} = useGetCategory()
@@ -21,6 +22,7 @@ export default function Attribute() {
     const [attributeData, setAttributeData] = useState([])
     const [attributeCount, setAttributeCount] = useState(1)
     const [isEdit, setIsEdit] = useState(false)
+    const theme=useSelector((state)=>state.theme)
     const queryClient = useQueryClient()
     const {data:attributeD, isLoading:attributeLoading, isError:attributeError, refetch:attributeRefetch} = useQuery({
         queryKey:['attribute'],
@@ -133,28 +135,30 @@ console.log(attributeD)
           }
       }
   return (
-    <div className='w-[100%] h-[100%] flex justify-center items-center bg-slate-200'>
+    <div className={`w-[100%] h-[100%] flex justify-center items-center ${theme === 'dark' ? 'bg-[#1D222B] text-white' : 'bg-slate-200 text-black'}`}>
         <ToastContainer/>
     <div className='w-[100%] p-2 flex flex-col gap-3 h-[100%]'>
         <div className='flex mt-2 justify-start px-4  gap-2 w-[100%] items-center'>
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'>  Manage Attributes</h1>
         </div>
-        <div className='w-[100%] bg-white p-4 flex flex-col  justify-center items-start'>
+        <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
             <form onSubmit={isEdit ? handleEditSubmit : handleSubmit}  className='w-[100%]'>
-                <div className="w-[100%] text-[#252525] text-2xl font-semibold  flex gap-1 items-center">
+                <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">
                 <MdCategory /> <span>Category</span>
                 </div>
-                <div className='w-[100%] bg-slate-200 p-4 mt-2 grid grid-cols-3 gap-x-8 gap-y-4 justify-center items-center'>
+                <div className={`'w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 grid grid-cols-3 gap-x-8 gap-y-4 justify-center items-center`}>
                     <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                         <label htmlFor="attributeName" className='text-xl font-semibold'>
                             Category <span className='text-red-500'>*</span>
                         </label>
-                        <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} name='categoryId' className='w-[100%] h-[50px] outline-none  p-2 border-[1px] border-gray-300 rounded-md'
+                        <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} 
+                        name='categoryId' className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`}
                          required>
                             <option value=''>Select Category</option>
                                     {loading ? <option value=''>Loading...</option> : category?.map((category) => (
-                                        <option key={category.CategoryID} value={Number(category.CategoryID)} >{category.CategoryName}</option>
+                                        <option key={category.CategoryID} value={Number(category.CategoryID)} >
+                                            {category.CategoryName}</option>
                                     ))}
                         </select>
                     </div>
@@ -162,8 +166,10 @@ console.log(attributeD)
                         <label htmlFor="attributeName" className='text-xl font-semibold'>
                             SubCategory <span className='text-red-500'>*</span>
                         </label>
-                        <select value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)} name='subcategoryId' className='w-[100%] h-[50px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required>
+                        <select value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)} name='subcategoryId' 
+                        className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`} required>
                             <option value=''>Select SubCategory</option>
+
                             {subCategoryLoading ? <option value=''>Loading...</option> : subCategory?.map((category) => (
                                 <option key={category.CategoryID} value={Number(category.CategoryID)} >{category.CategoryName}</option>
                             ))}
@@ -173,7 +179,8 @@ console.log(attributeD)
                         <label htmlFor="attributeName" className='text-xl font-semibold'>
                         SubCategoryLevel2  <span className='text-red-500'>*</span>
                         </label>
-                        <select value={subCategoryLv2Id} onChange={(e) => setSubCategoryLv2Id(e.target.value)} name='subcategoryId' className='w-[100%] h-[50px] outline-none  p-2 border-[1px] border-gray-300 rounded-md' required>
+                        <select value={subCategoryLv2Id} onChange={(e) => setSubCategoryLv2Id(e.target.value)}
+                         name='subcategoryId' className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`} required>
                             <option value=''>Select SubCategoryLevel2</option>
                             {subCategoryLv2Loading ? <option value=''>Loading...</option> : subCategoryLv2?.map((category) => (
                                 <option key={category.CategoryID} value={Number(category.CategoryID)} >{category.CategoryName}</option>
@@ -182,7 +189,7 @@ console.log(attributeD)
                     </div>
                 </div>
                 <div className='w-[100%]  flex justify-start flex-col gap-3 my-3 items-start'>
-                <div className="w-[100%] text-[#252525] text-2xl font-semibold  flex gap-1 items-center">
+                <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">
                 <IoIosAddCircle /> <span>Attributes</span>
                 </div>
                 {Array.from({length: attributeCount}).map((_, index) => (
@@ -191,11 +198,11 @@ console.log(attributeD)
              : <NewAttributes key={index} isEdit={isEdit} attributeData={attributeData} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>}
             </>
             ))}
-                <div onClick={handleNewAddAttribute} className='bg-black cursor-pointer text-white  px-3 py-2 text-md font-semibold'>
+                <div onClick={handleNewAddAttribute} className={`${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-black'} cursor-pointer text-white  px-3 py-2 text-md font-semibold`}>
                     <span>Add Attribute</span>
                 </div>
                 <div className='w-[100%] mt-4 flex justify-between border-t-[1px] border-gray-300 pt-3 items-center'>
-                    <button type='reset' onClick={handleReset} className='w-[100px] px-3 py-1 flex bg-[#fdfdfd] border-[1px] border-gray-300 text-md font-semibold '>
+                    <button type='reset' onClick={handleReset} className='w-[100px] px-3 py-1 flex bg-[#fdfdfd] text-black border-[1px] border-gray-300 text-md font-semibold '>
                      ClearForm
                     </button>
                     <button type='submit' className='w-[100px] px-4 py-2 text-white bg-[#000000] text-md '>

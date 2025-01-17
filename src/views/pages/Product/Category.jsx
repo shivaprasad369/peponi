@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useQuery,useQueryClient } from '@tanstack/react-query';
 import DataTable from '../Ui/Datatable';
+import { useSelector } from 'react-redux';
 
 export default function Category() {
     document.title = 'Category'
@@ -17,6 +18,7 @@ export default function Category() {
     const [isEdit,setIsEdit]=useState(false)
     const [id,setId]=useState(null)
     const queryClient=useQueryClient()
+    const theme=useSelector((state)=>state.theme)
     const {isLoading,isError,isSuccess,error,data=[]}=useQuery({
         queryKey:['category'],
         queryFn:async()=>{
@@ -149,14 +151,14 @@ export default function Category() {
     
 
     return (
-        <div className='w-[100%] h-[100%] flex justify-center items-center bg-slate-200'>
+        <div className={`w-[100%] h-[100%] flex justify-center items-center ${theme === 'dark' ? 'bg-[#1D222B] text-white' : 'bg-slate-200 text-black'}`}>
             <div className='w-[100%] flex flex-col gap-3 h-[100%]'>
                 <ToastContainer autoClose={1000} />
                 <div className='flex justify-start px-4  gap-2 w-[100%] items-center'>
                     <FaSitemap className='text-3xl font-semibold' />
                     <h1 className='text-4xl font-normal'> Manage Category</h1>
                 </div>
-                <div className='w-[80%] bg-white p-4 mb-5 flex flex-col  justify-center items-start'>
+                <div className={`w-[80%] ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white'} p-4 mb-5 flex flex-col  justify-center items-start`}>
                     <form ref={formref} onSubmit={isEdit ? handleEditSubmit : handleSubmit} className='w-[100%]' encType='multipart/form-data'>
                         <div className='w-[100%] grid grid-cols-2 gap-x-10 gap-y-4 justify-center items-center'>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -167,8 +169,8 @@ export default function Category() {
                                     value={categoryName}
                                     onChange={(e) => setCategoryName(e.target.value)}
                                     type="text"
-                                    className='w-[100%] h-[50px] outline-none border-2 border-gray-300 rounded-md p-2'
                                     required
+                                    className={`w-[100%] h-[50px] outline-none border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md p-2`}
                                 />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -177,7 +179,7 @@ export default function Category() {
                                     value={metaTitle}
                                     onChange={(e) => setMetaTitle(e.target.value)}
                                     type="text"
-                                    className='w-[100%] h-[50px] outline-none border-2 border-gray-300 rounded-md p-2'
+                                    className={`w-[100%] h-[50px] outline-none border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md p-2`}
                                 />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -186,7 +188,7 @@ export default function Category() {
                                     value={metaKeywords}
                                     onChange={(e) => setMetaKeywords(e.target.value)}
                                     type="text"
-                                    className='w-[100%] h-[50px] outline-none border-2 border-gray-300 rounded-md p-2'
+                                    className={`w-[100%] h-[50px] outline-none border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md p-2`}
                                 />
                             </div>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -195,7 +197,7 @@ export default function Category() {
                                     value={metaDescription}
                                     onChange={(e) => setMetaDescription(e.target.value)}
                                     type="text"
-                                    className='w-[100%] h-[50px] outline-none border-2 border-gray-300 rounded-md p-2'
+                                    className={`w-[100%] h-[50px] outline-none border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md p-2`}
                                 />
                             </div>
                             {!isEdit ? <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -207,7 +209,7 @@ export default function Category() {
                                     type="file"
                                   
                                     accept='image/*'
-                                    className='w-[100%] h-[50px] outline-none border-2 border-gray-300 rounded-md p-2'
+                                    className={`w-[100%] h-[50px] outline-none border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md p-2`}
                                     required
                                 />
                             </div>
@@ -221,7 +223,7 @@ export default function Category() {
                                     type="file"
                                   
                                     accept='image/*'
-                                    className='w-[100%] h-[50px] outline-none border-2 border-gray-300 rounded-md p-2'
+                                    className={`w-[100%] h-[50px] outline-none border-[1px] ${theme === 'dark' ? 'border-gray-300 bg-[#1D222B]' : 'border-gray-400'} rounded-md p-2`}
                                
                                 />
                             </div>

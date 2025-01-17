@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { HiMinusCircle } from "react-icons/hi";
 import { IoIosAddCircle } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 export default function AttributeUi({
   setAttributeCount,
@@ -12,6 +13,7 @@ export default function AttributeUi({
   setAttributeData,
   isEdit
 }) {
+  const theme=useSelector((state)=>state.theme)
   const [count, setCount] = useState(2);
 const queryClient = useQueryClient()
   const handleAddAttributeValue = () => {
@@ -80,7 +82,7 @@ const queryClient = useQueryClient()
   };
 
   return (
-    <div className="w-[100%] bg-slate-200 p-4 mt-2 flex gap-x-8 gap-y-4 justify-start items-start">
+    <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 flex gap-x-8 gap-y-4 justify-start items-start`}>
       
       <div className="w-[50%] flex flex-col gap-2 justify-start items-start">
         <label htmlFor="attributeName" className="text-lg font-semibold">
@@ -91,7 +93,7 @@ const queryClient = useQueryClient()
           value={attributeData[index]?.attributeName || ""}
           onChange={handleAttributeName}
           name="attributeName"
-          className="w-[100%] h-[60px] outline-none p-2 border-[1px] border-gray-300 rounded-md"
+          className={`w-[100%] h-[60px] outline-none p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`}
           required
         />
       </div>
@@ -107,7 +109,7 @@ const queryClient = useQueryClient()
               onChange={(e) => handleAttributeValue(e, valueIndex)}
               type="text"
               name={`attributeValue-${valueIndex}`}
-              className="w-[100%] h-[60px] outline-none p-2 border-[1px] border-gray-300 rounded-md"
+              className={`w-[100%] h-[60px] outline-none p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`}
               required
             />
             <span

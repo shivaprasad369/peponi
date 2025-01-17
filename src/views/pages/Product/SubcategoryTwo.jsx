@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FaSitemap } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';                
 import DataTable from '../Ui/Datatable';
+import { useSelector } from 'react-redux';
 export default function SubcategoryTwo() {
     document.title = 'Subcategory Level2'
     const formref = useRef(null);
@@ -20,6 +21,7 @@ export default function SubcategoryTwo() {
     const [catLoading, setCatLoading] = useState(false);
     const [subcategoryOneId, setSubcategoryOneId] = useState('');
     const queryClient = useQueryClient();
+    const theme=useSelector((state)=>state.theme)
     const handleGetMainCategories = async () => {
         setCatLoading(true);
         try {
@@ -159,14 +161,14 @@ export default function SubcategoryTwo() {
         }
     }
   return (
-    <div className='w-[100%] h-[100%] flex justify-center items-center bg-slate-200'>
+    <div className={`w-[100%] h-[100%] flex justify-center items-center ${theme === 'dark' ? 'bg-[#1D222B] text-white' : 'bg-slate-200 text-black'}`}>
         <ToastContainer autoClose={1000}/>
     <div className='w-[100%] flex flex-col gap-3 h-[100%]'>
         <div className='flex mt-2 justify-start px-4  gap-2 w-[100%] items-center'>
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'>  Manage Sub Category Level2</h1>
         </div>
-        <div className='w-[100%] mb-5 bg-white p-4 flex flex-col  justify-center items-start'>
+        <div className={`w-[100%] mb-5 ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white'} p-4 flex flex-col  justify-center items-start`}>
             <form onSubmit={isEdit ? handleUpdate : handleSubmit} ref={formref}  className='w-[100%]' encType='multipart/form-data'>
                 <div className='w-[100%] grid grid-cols-3 gap-x-10 gap-y-4 justify-center items-center'>
                 <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
@@ -175,7 +177,7 @@ export default function SubcategoryTwo() {
                         </label>
                         <select name='categoryId' value={mainCategoryId} disabled={isEdit}  onChange={(e) => setMainCategoryId(e.target.value)} 
                           
-                        className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] border-gray-300 rounded-md ${isEdit ? 'bg-gray-200' : ''}`} required>
+                        className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md ${isEdit ? 'bg-gray-200' : ''}`} required>
                             <option value=''>Select Category</option>
                             {catLoading ? <option value=''>Loading...</option> : mainCategory?.map((category) => (
                                 <option key={category.CategoryID} value={Number(category.CategoryID)} >{category.CategoryName}</option>
@@ -188,7 +190,7 @@ export default function SubcategoryTwo() {
                         </label>
                         <select name='categoryId' value={categoryId} disabled={isEdit}  onChange={(e) => setCategoryId(e.target.value)} 
                             
-                        className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] border-gray-300 rounded-md ${isEdit ? 'bg-gray-200' : ''}`} required>
+                        className={`w-[100%] h-[50px] outline-none  p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md ${isEdit ? 'bg-gray-200' : ''}`} required>
                             <option value=''>Select Category</option>
                             {catLoading ? <option value=''>Loading...</option> : categories?.map((category) => (
                                 <option key={category.CategoryID} value={Number(category.CategoryID)} >{category.CategoryName}</option>
@@ -199,18 +201,20 @@ export default function SubcategoryTwo() {
                         <label htmlFor="subcategoryDescription" className='text-xl font-semibold'>
                         Sub Category Level2 <span className='text-red-500'>*</span>
                         </label>
-                        <input type='text' value={subcategoryTwoName} name='subcategoryName' onChange={(e) => setSubcategoryTwoName(e.target.value)} className='w-[100%] h-[50px] outline-none p-2 border-[1px] border-gray-300 rounded-md' required/>
+                        <input type='text' value={subcategoryTwoName} name='subcategoryName' onChange={(e) => setSubcategoryTwoName(e.target.value)} className={`w-[100%] h-[50px] outline-none p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`} required/>
                     </div>
                     {!isEdit ? <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                         <label htmlFor="subcategoryImage" className='text-xl font-semibold'>
                             Subcategory Image <span className='text-red-500'>*</span>
                         </label>
-                        <input type='file' name='subcategoryImage' onChange={(e) => setSubcategoryImage(e.target.files[0])} accept='image/*' className='w-[100%] h-[50px] outline-none p-2 border-[1px] border-gray-300 rounded-md' required/>
+                        <input type='file' name='subcategoryImage' onChange={(e) => setSubcategoryImage(e.target.files[0])} 
+                        accept='image/*' className={`w-[100%] h-[50px] outline-none p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`} required/>
                     </div> : <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                         <label htmlFor="subcategoryImage" className='text-xl font-semibold'>
                            Uploaded New Subcategory Image
                         </label>
-                        <input type='file' name='subcategoryImage' onChange={(e) => setNewImage(e.target.files[0])} accept='image/*' className='w-[100%] h-[50px] outline-none p-2 border-[1px] border-gray-300 rounded-md'/>
+                        <input type='file' name='subcategoryImage' onChange={(e) => setNewImage(e.target.files[0])}
+                         accept='image/*' className={`w-[100%] h-[50px] outline-none p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`}/>
                     </div>}
                 </div>
                     {isEdit && <div className='w-[100%] mt-3 flex flex-col gap-2 justify-start items-start'>

@@ -118,7 +118,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
           </thead>
           <tbody>
             {currentRows?.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+              <tr key={index} className={`${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
                 <td className="p-2 border">{item.CategoryName}</td>
                 <td className="p-2 border">{item.subcategoryName}</td>
                 <td className="p-2 border">{item.subcategorytwoName}</td>
@@ -133,7 +133,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
                         {attribute?.values?.map((value, vIdx) => (
                           <span
                             key={vIdx}
-                            className="px-2 py-1 text-xs bg-gray-200 rounded dark:bg-gray-600"
+                            className="px-2 py-1 text-xs bg-gray-200 text-black rounded dark:bg-gray-600"
                           >
                             {value.value}
                           </span>

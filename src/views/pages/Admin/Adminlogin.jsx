@@ -47,15 +47,15 @@ export default function Adminlogin() {
           {(errors.email || errors.password) && <span className='text-red-500'>Please fill all the fields</span>}
           <div className='w-[100%] relative flex flex-col gap-1'>
           <input type="text" placeholder='username'  {...register("username",{required:true})}
-          className='w-[88%] border-[1px] border-gray-300 bg-white  outline-none px-2 py-1' />
-          <div className='absolute border-r-[1px] border-t-[1px] border-b-[1px] border-gray-300  right-0 h-[100%] w-[12%] flex items-center justify-center'>
+          className='w-[88%] border-[1px] border-gray-300 bg-white text-black outline-none px-2 py-1' />
+          <div className='absolute border-r-[1px] text-black border-t-[1px] border-b-[1px] border-gray-300  right-0 h-[100%] w-[12%] flex items-center justify-center'>
           <IoMailOutline />
           </div>
           </div>
           <div className='w-[100%] relative flex flex-col gap-1'>
 
           <input type="password" placeholder='Password'  {...register("password",{required:true})}
-         className='w-[88%] border-[1px] border-gray-300 bg-white  outline-none px-2 py-1'  />
+         className='w-[88%] border-[1px] border-gray-300 bg-white text-black outline-none px-2 py-1'  />
            <div className='absolute border-r-[1px] border-t-[1px] border-b-[1px] border-gray-300 text-black  right-0 h-[100%] w-[12%] flex items-center justify-center'>
           <RiLockPasswordFill  />
           </div>
