@@ -61,12 +61,11 @@ console.log(attributeD)
           values: item.value,
         }));
         try {
-          if (categoryId && subCategoryId && subCategoryLv2Id) {
+          if (categoryId && subCategoryId ) {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/attribute`,
                 {   Attributes ,
                 categoryId,
-                subCategoryId,
-                subCategoryLv2Id
+                subCategoryId
             });
             if (response.status === 200) {
               toast.success(response.data.message);
@@ -101,7 +100,7 @@ console.log(attributeD)
         window.scrollTo(0, 0);
         setCategoryId(value.CategoryID)
         setSubCategoryId(value.subcategory)
-        setSubCategoryLv2Id(value.subcategorytwo)
+        // setSubCategoryLv2Id(value.subcategorytwo)
         setAttributeData(value.attributes)
         setAttributeCount(value.attributes.length)
         setIsEdit(true)
@@ -113,12 +112,13 @@ console.log(attributeD)
             attributeId: item.attribute_id,
             values: item.values
           }));
+          console.log(Attributes)
           try {
             const response = await axios.put(`${import.meta.env.VITE_API_URL}/attribute`,{
                 Attributes,
                 categoryId,
-                subCategoryId,
-                subCategoryLv2Id
+                subCategoryId
+                // subCategoryLv2Id
             })
             if(response.status === 200){
                 toast.success(response.data.message)
@@ -127,7 +127,7 @@ console.log(attributeD)
                 setAttributeCount(1) 
                 setCategoryId('')
                 setSubCategoryId('')
-                setSubCategoryLv2Id('')
+                // setSubCategoryLv2Id('')
                 setIsEdit(false)
             }
           } catch (error) {
@@ -147,7 +147,7 @@ console.log(attributeD)
                 <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">
                 <MdCategory /> <span>Category</span>
                 </div>
-                <div className={`'w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 grid grid-cols-3 gap-x-8 gap-y-4 justify-center items-center`}>
+                <div className={`'w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 grid grid-cols-2 gap-x-8 gap-y-4 justify-center items-center`}>
                     <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                         <label htmlFor="attributeName" className='text-xl font-semibold'>
                             Category <span className='text-red-500'>*</span>
@@ -175,7 +175,7 @@ console.log(attributeD)
                             ))}
                         </select>
                     </div>
-                    <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>    
+                    {/* <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>    
                         <label htmlFor="attributeName" className='text-xl font-semibold'>
                         SubCategoryLevel2  <span className='text-red-500'>*</span>
                         </label>
@@ -186,7 +186,7 @@ console.log(attributeD)
                                 <option key={category.CategoryID} value={Number(category.CategoryID)} >{category.CategoryName}</option>
                             ))}
                         </select>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='w-[100%]  flex justify-start flex-col gap-3 my-3 items-start'>
                 <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">

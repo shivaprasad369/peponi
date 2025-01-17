@@ -14,9 +14,9 @@ span.apexcharts-legend-text {
 const SaleByCategory = () => {
   const theme = useSelector((state) => state.theme);
   const categories = [
-    { name: "Men Fashion", color: "#8F77F3", value: 44, label: "$44,000" },
-    { name: "Accessory", color: "#FF7433", value: 33, label: "$33,000" },
-    { name: "Sport Shoes", color: "#2377FD", value: 22, label: "$22,000" },
+    { name: "Folk and Traditional Arts", color: "#8F77F3", value: 44, label: "$44,000" },
+    { name: "Applied Arts", color: "#FF7433", value: 33, label: "$33,000" },
+    { name: "Literary Arts", color: "#2377FD", value: 22, label: "$22,000" },
   ];
 
   const chartData = {

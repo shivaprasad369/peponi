@@ -85,11 +85,11 @@ const _nav = [
         name: 'Manage Subcategory',
         to: '/admin/account/subcategory',
       },
-      {
-        component: CNavItem,
-        name: 'Manage Subcategory Two',
-        to: '/admin/account/subcategory-two',
-      },
+      // {
+      //   component: CNavItem,
+      //   name: 'Manage Subcategory Two',
+      //   to: '/admin/account/subcategory-two',
+      // },
       {
         component: CNavItem,
         name: 'Manage Attribute',

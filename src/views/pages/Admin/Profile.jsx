@@ -57,13 +57,16 @@ export default function Profile() {
     }
     
   return (
-    <div className={`lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2a2f3a] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}    >
+    <div className={`w-[100%] px-3 h-[100%] ${theme === 'dark' ? 'bg-[#2a2f3a] text-white' : 'bg-slate-200 text-gray-800 '} flex flex-col gap-3 items-start justify-start`}    >
         <ToastContainer autoClose={1000}/>
-      <div className='w-full h-[100%]  shadow-md p-4'>
-        <h1 className='text-2xl font-bold'>Admin Profile</h1>
-        <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+        <div className="flex items-center gap-2 justify-start w-[100%]">
+        <FaUserAlt className='text-2xl font-semibold' />
+        <h1 className='text-3xl font-normal'>Admin Profile</h1>
+        </div>
+      <div className={`lg:w-[55%] h-fit p-4 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}>
+        <form onSubmit={handleSubmit} className='flex flex-col w-[100%]  gap-3'>
             <div className="flex flex-col gap-1">
-            <label htmlFor="name" className='font-bold'>Name</label>
+            <label htmlFor="name" className='font-bold'>Admin Name</label>
                 <div className='w-[100%] h-[2.3rem] relative flex items-end justify-end'>
                 <div className='w-[10%] bg-black h-full   text-white  flex items-center rounded-l justify-center p-1'>
                 <FaUserAlt />

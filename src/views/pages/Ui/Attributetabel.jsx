@@ -111,7 +111,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
             >
               <th className="p-2 border w-[150px]">Category Name</th>
               <th className="p-2 border w-[150px]">SubCategory 1</th>
-              <th className="p-2 border w-[150px]">SubCategory 2</th>
+              {/* <th className="p-2 border w-[150px]">SubCategory 2</th> */}
               <th className="p-2 border ">Attributes</th>
               <th className="p-2 border w-[100px]">Actions</th>
             </tr>
@@ -121,7 +121,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
               <tr key={index} className={`${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
                 <td className="p-2 border">{item.CategoryName}</td>
                 <td className="p-2 border">{item.subcategoryName}</td>
-                <td className="p-2 border">{item.subcategorytwoName}</td>
+                {/* <td className="p-2 border">{item.subcategorytwoName}</td> */}
                 <td className="p-2 border">
                   {item?.attributes.map((attribute, idx) => (
                     <div

@@ -92,6 +92,10 @@ export default function Subcategory() {
     }
     const handleDelete=async(id)=>{
         try {
+            const confirm=window.confirm("Are you sure you want to delete this category?")
+            if(!confirm){
+                return
+            }
             const res = await axios.delete(import.meta.env.VITE_API_URL+'/category/'+id.CategoryID);
             if(res.status === 200){
                 toast.success(res.data.message);

@@ -189,7 +189,7 @@ useEffect(()=>{
 
     const handleAttribute = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/attributes?id=${subCategoryLv2Id}`)
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/attributes?id=${subCategoryId}`)
             if (response.status === 200) {
                 setAttribute(response.data)
             }
@@ -198,11 +198,11 @@ useEffect(()=>{
         }
     }
     useEffect(() => {
-        if (subCategoryLv2Id) {
+        if (subCategoryId) {
             handleAttribute()
 
         }
-    }, [subCategoryLv2Id])
+    }, [subCategoryId])
     const handleChange = (attributeName, value) => {
         setAttributeValue((prevState) => ({
             ...prevState,
@@ -215,6 +215,10 @@ useEffect(()=>{
     };
     const handleDelete = async (id) => {
         try {
+            const confirm=window.confirm("Are you sure you want to delete this product?")
+            if(!confirm){
+                return
+            }
             const response = await axios.delete(`${import.meta.env.VITE_API_URL}/product/${id}`)
             if (response.status === 200) {
                 toast.success('Product deleted successfully')
@@ -351,7 +355,7 @@ useEffect(()=>{
             <div className='w-[100%] flex flex-col gap-3 h-[100%]'>
                 <div className='flex pt-2  justify-start px-4  gap-2 w-[100%] items-center'>
                     <IoMdCart className='text-4xl font-semibold' />
-                    <h1 className='text-3xl font-normal'> Add Product</h1>
+                    <h1 className='text-4xl font-normal'> Add Product</h1>
                 </div>
                 {show && <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442] text-white' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
                     <form ref={formRef} onSubmit={isEdit ? handleEditSubmit : handleSubmit} className='w-[100%]' encType='multipart/form-data'>
@@ -447,7 +451,7 @@ useEffect(()=>{
                         <div className='w-[100%] mb-3 mt-3 text-2xl font-semibold  flex gap-1 items-center'>
                             <FaCubes />  <span>Product Categories</span>
                         </div>
-                        <div className='w-[100%] grid grid-cols-3 gap-x-5 gap-y-4 justify-center items-center'>
+                        <div className='w-[100%] grid grid-cols-2 gap-x-5 gap-y-4 justify-center items-center'>
                             <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg  font-semibold'>
                                     Product Category  <span className='text-red-500'>*</span>
@@ -476,7 +480,7 @@ useEffect(()=>{
                                     ))}
                                 </select>
                             </div>
-                            <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
+                            {/* <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Subcategory lv2 <span className='text-red-500'>*</span>
                                 </label>
@@ -489,9 +493,9 @@ useEffect(()=>{
                                         <option value={item.CategoryID}>{item.CategoryName}</option>
                                     ))}
                                 </select>
-                            </div>
+                            </div> */}
                         </div>
-                        {subCategoryLv2Id && <div className='w-[100%] flex flex-col gap-x-5 gap-y-4 '>
+                        {subCategoryId && <div className='w-[100%] flex flex-col gap-x-5 gap-y-4 '>
                             <div className='w-[100%] mb-3 mt-3  text-2xl font-semibold  flex gap-1 items-center'>
                                 <FaCubes />  <span>Product Attributes</span>
                             </div>

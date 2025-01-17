@@ -183,9 +183,9 @@ console.log(getValues('image'))
   return (
     <div className={`px-4 w-full h-full flex-col gap-3 ${theme === 'dark' ? 'bg-transparent text-white' : 'bg-slate-200 text-gray-800 '} flex justify-center items-center`}>
         <ToastContainer/>
-        <div className='flex items-center justify-start w-[100%]'>
-          <FaSitemap className='text-3xl font-semibold' />
-          <h1 className='text-4xl font-normal'>Manage Blogs</h1>
+        <div className='flex items-center gap-2 justify-start w-[100%]'>
+          <FaSitemap className='text-2xl font-semibold' />
+          <h1 className='text-3xl font-normal'>Manage Blogs</h1>
         </div>
         <div className={`w-full mb-5 h-full ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} rounded-md p-4`}>
       <div className='flex justify-center w-[100%] items-center mt-4'>

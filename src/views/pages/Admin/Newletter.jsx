@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useQuery,useQueryClient } from '@tanstack/react-query';
 import ExcelJS from 'exceljs';
 import { useSelector } from 'react-redux';
-import { FaSitemap } from 'react-icons/fa';
+import { FaSitemap, FaUsers } from 'react-icons/fa';
 export default function Newletter() {
         const [users,setUsers]=useState([])
     const apiUrl=import.meta.env.VITE_API_URL;
@@ -85,10 +85,10 @@ export default function Newletter() {
   return (
     <div className={`w-full h-full flex ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} px-2  justify-start`}>
         <ToastContainer autoClose={1000}/>
-      <div className={`w-[100%] h-fit ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} flex flex-col gap-4  pb-[2rem] px-[1rem]  items-start justify-center`}>
+      <div className={`w-[100%] h-fit ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '} flex flex-col gap-2  pb-[2rem] px-[1rem]  items-start justify-center`}>
         <div className="flex items-center  gap-2 mt-2 justify-start w-[100%]">
-          <FaSitemap className='text-3xl font-semibold' />
-          <h1 className='text-4xl font-normal'>Newsletter Subscribers</h1>
+          <FaUsers className='text-3xl font-semibold' />
+          <h1 className='text-3xl font-normal'>Newsletter Subscribers</h1>
         </div>
        {users.length>0 ? <DataTable
         data={users}
