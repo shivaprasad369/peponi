@@ -68,7 +68,7 @@ export default function Profile() {
             <div className="flex flex-col gap-1">
             <label htmlFor="name" className='font-bold'>Admin Name</label>
                 <div className='w-[100%] h-[2.3rem] relative flex items-end justify-end'>
-                <div className={`w-[10%] h-full border-l-[1px] border-t-[1px] border-b-[1px]  flex items-center rounded-l justify-center p-1 ${theme === 'dark' ? 'border-gray-300 text-white' : 'border-gray-300 text-black'}`}>
+                <div className={`w-[10%] h-full border-l-[1px] border-t-[1px] border-b-[1px]  flex items-center rounded-l justify-center p-1 ${theme === 'dark' ? 'border-gray-700 text-white' : 'border-gray-300 text-black'}`}>
 
                 <FaUserAlt />
                 </div>
@@ -83,7 +83,7 @@ export default function Profile() {
             <div className="flex flex-col gap-1">
             <label htmlFor="email" className='font-bold'>Email ID </label>
                 <div className='w-[100%] h-[2.3rem] relative flex items-end justify-end'>
-                <div className={`w-[10%] h-full border-l-[1px] border-t-[1px] border-b-[1px]  flex items-center rounded-l justify-center p-1 ${theme === 'dark' ? 'border-gray-300 text-white' : 'border-gray-300 text-black'}`}>
+                <div className={`w-[10%] h-full border-l-[1px] border-t-[1px] border-b-[1px]  flex items-center rounded-l justify-center p-1 ${theme === 'dark' ? 'border-gray-700 text-white' : 'border-gray-300 text-black'}`}>
 
                 <FaEnvelope />
                 </div>
@@ -97,7 +97,7 @@ export default function Profile() {
             <div className="flex flex-col gap-1">
             <label htmlFor="phone" className='font-bold'>Phone No</label>
                 <div className='w-[100%] h-[2.3rem] relative flex items-end justify-end'>
-                <div className={`w-[10%] h-full border-l-[1px] border-t-[1px] border-b-[1px]  flex items-center rounded-l justify-center p-1 ${theme === 'dark' ? 'border-gray-300 text-white' : 'border-gray-300 text-black'}`}>
+                <div className={`w-[10%] h-full border-l-[1px] border-t-[1px] border-b-[1px]  flex items-center rounded-l justify-center p-1 ${theme === 'dark' ? 'border-gray-700 text-white' : 'border-gray-300 text-black'}`}>
                 <FaPhone />
                 </div>
             <input type="text" placeholder='Enter your phone'
