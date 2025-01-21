@@ -102,7 +102,7 @@ useEffect(()=>{
         formData.append('discountPercentage', discountPercentage)
         formData.append('discountPrice', discountPrice)
         formData.append('sellingPrice', sellingPrice)
-        formData.append('cashPrice', cashPrice)
+        formData.append('cashPrice', sellingPrice)
         formData.append('categoryId', categoryId)
         formData.append('subCategoryId', subCategoryId)
         formData.append('subCategoryLv2Id', 0)
@@ -244,7 +244,7 @@ useEffect(()=>{
         setDiscountPercentage(id.DiscountPercentage)
         setDiscountPrice(id.DiscountPrice)
         setSellingPrice(id.SellingPrice)
-        setCashPrice(id.CashPrice)
+        setCashPrice(id.SellingPrice)
         setCategoryId(id.CategoryID)
         setSubCategoryId(id.SubCategoryIDone)
         setOldCategoryId(id.CategoryID)
@@ -333,6 +333,7 @@ useEffect(()=>{
             setAttributeValue('')
             setValues('')
             setProductImage('')
+            setShow(false)
             setCashPrice('')
             setImages([])
         }
@@ -440,7 +441,7 @@ useEffect(()=>{
                                     name='sellingPrice' id='sellingPrice' className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme === 'dark' ?
                                    'border-gray-400 bg-transparent' : 'border-gray-400'} rounded-md`} required />
                             </div>  
-                            <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
+                            {/* <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                 <label htmlFor="productName" className='text-lg font-semibold'>
                                     Product CashPrice  <span className='text-red-500'>*</span>
                                 </label>
@@ -448,7 +449,7 @@ useEffect(()=>{
                                 id='cashPrice'
                                 className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme === 'dark' ?
                                    'border-gray-400 bg-transparent' : 'border-gray-400'} rounded-md`} required />
-                            </div>
+                            </div> */}
 
                         </div>
                         <div className='w-[100%] mb-3 mt-3 text-2xl font-semibold  flex gap-1 items-center'>
@@ -591,14 +592,17 @@ useEffect(()=>{
                             <ProductImageList ProductImages={ProductImages} isEdit={isEdit} />
                         </div>
                         <div className='w-[100%] flex justify-between items-center border-t-[1px] border-gray-300 pt-3 mt-3'>
-                            <button type='button' className='bg-white border-[1px] border-gray-300 text-black p-2 px-4 '>CLear form</button>
+                            <button type='button' className='bg-white border-[1px] border-gray-300 text-black p-2 px-4 '>CLEAR</button>
+                            <div className='w-[100%] flex justify-end gap-3 items-center'>
+                            <button type='button' onClick={()=>setShow(false)} className='bg-black text-white p-2 px-4 '>Cancel</button>
                             <button type='submit' className='bg-black text-white p-2 px-4 '>{isEdit ? 'Update Product' : 'Add Product'}</button>
+                            </div>
                         </div>
                     </form>
                 </div>}
-                {!isLoading && !isError && <div className='w-[100%] flex justify-center items-center'>
-                    <ProductTable data={product} show={show} handleClose={handleCloses} onView={handleView} setView={setView} onDelete={handleDelete} onEdit={handleEdit} />
-                </div>}
+                 <div className='w-[100%] flex justify-center items-center'>
+                    <ProductTable data={product} loading={isLoading} show={show} handleClose={handleCloses} onView={handleView} setView={setView} onDelete={handleDelete} onEdit={handleEdit} />
+                </div>
                 {view && <View onClose={handleClose}>
                     <div className="xl:w-[70%] lg:w-[90%] w-[95%] h-[95%] py-[3rem] text-[#252525] bg-white p-[2rem] flex flex-col gap-5 items-center justify-center rounded-md overflow-y-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <h1 className="text-2xl font-semibold">View Blog</h1>

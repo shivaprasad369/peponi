@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEye, FaTrash, FaRegEdit } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleClose,show }) => {
+const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleClose,show,loading }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -25,15 +25,19 @@ const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleCl
     setSortedData(sorted);
   };
 
-  const filteredData = sortedData.filter((item) =>
+  if(loading){
+    return <div className='w-[100%] flex justify-center items-center'>
+        <h1 className='text-2xl font-semibold'>Loading...</h1>
+    </div>
+  }
+  const filteredData = sortedData?.filter((item) =>
     item.ProductName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
+  const currentRows = filteredData?.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  const totalPages = Math.ceil(filteredData?.length / rowsPerPage);
 
   return (
     <div className={`p-4 ${theme === "dark" ? "bg-[#2e3442] text-white" : "bg-white text-gray-800"} w-[100%] `}>
@@ -41,6 +45,7 @@ const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleCl
             <h1 className="text-2xl font-semibold">Product List</h1>
             {!show &&<button onClick={()=>handleClose()} className="bg-black text-white p-2 px-4 rounded-md">Add Product</button>}
         </div>
+       
       <div className="mb-4 flex justify-between items-center">
         <input
           type="text"
@@ -70,7 +75,7 @@ const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleCl
           </tr>
         </thead>
         <tbody>
-          {currentRows.map((row, index) => (
+          {currentRows?.map((row, index) => (
             <tr
               key={index}
               className={`${theme === "dark" ? "bg-[#292f3b] text-white" : "hover:bg-gray-100"}`}
@@ -112,8 +117,8 @@ const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleCl
       </table>
       <div className="flex justify-between items-center mt-4">
         <div>
-          Showing {indexOfFirstRow + 1} to {Math.min(indexOfLastRow, filteredData.length)} of{" "}
-          {filteredData.length} entries
+          Showing {indexOfFirstRow + 1} to {Math.min(indexOfLastRow, filteredData?.length)} of{" "}
+          {filteredData?.length} entries
         </div>
         <div className="flex gap-2">
           <button
