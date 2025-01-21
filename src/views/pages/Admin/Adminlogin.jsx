@@ -27,7 +27,10 @@ export default function Adminlogin() {
       const response = await axios.post(`${apiUrl}/admin/login`,data)
       toast.success(response.data.message);
       localStorage.setItem('adminToken',response.data.token);
-      navigate('/admin/account/dashboard');
+      if(response.status===200){
+        navigate('/admin/account/dashboard');
+        setIsLoading(false);
+      }
       setIsLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
