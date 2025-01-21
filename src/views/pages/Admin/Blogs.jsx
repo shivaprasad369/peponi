@@ -225,10 +225,6 @@ console.log(getValues('image'))
                 }
             <label htmlFor='image' className='text-lg mt-3 -mb-3 font-semibold'>{isEdit ? 'New Image' : 'Image'}</label>
            
-          {/* {errors.image && (
-            <span className="text-red-500">Image is required</span>
-          )} */}
-
 
                 {!isEdit && <input type="file" placeholder='Image' accept='image/*' 
             className={`p-2 mt-3 border-[1px]  outline-none rounded-sm ${theme === 'dark' ? 'bg-[#212631] text-white border-gray-500' : 'bg-white text-gray-800 border-gray-300'}`} 

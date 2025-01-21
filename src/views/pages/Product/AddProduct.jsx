@@ -49,24 +49,27 @@ export default function AddProduct() {
     const [attributeValue, setAttributeValue] = useState([])
     const [ProductImages, setProductImages] = useState([])
 
-useEffect(()=>{
-    if(!loading){
-        const categoryData = category.find(item=>item.CategoryID===oldCategoryId)
-        if(!categoryData){
+useEffect(() => {
+    if (!loading && category) {
+        const categoryData = category.find(item => item.CategoryID === oldCategoryId)
+        if (!categoryData) {
             setAttributeValues({})
+            setAttributeValue({})
         }
     }
-},[category,loading])
-useEffect(()=>{
-    if(!subCategoryLoading){
-        const categoryData = subCategory.find(item=>item.CategoryID===oldSubCategoryId)
-        if(!categoryData){
+}, [category, loading, oldCategoryId])
+
+useEffect(() => {
+    if (!subCategoryLoading && subCategory?.length > 0) {
+        const categoryData = subCategory.find(item => item.CategoryID === oldSubCategoryId)
+        if (!categoryData) {
             setAttributeValues({})
+            setAttributeValue({})
         }
     }
-},[subCategory,subCategoryLoading])
+}, [subCategory, subCategoryLoading, oldSubCategoryId])
 useEffect(()=>{
-    if(!subCategoryLv2Loading){
+    if(!subCategoryLv2Loading && subCategoryLv2?.length>0){
         const categoryData = subCategoryLv2.find(item=>item.CategoryID===oldSubCategoryLv2Id)
         if(!categoryData){
             setAttributeValues({})
@@ -102,7 +105,7 @@ useEffect(()=>{
         formData.append('cashPrice', cashPrice)
         formData.append('categoryId', categoryId)
         formData.append('subCategoryId', subCategoryId)
-        formData.append('subCategoryLv2Id', subCategoryLv2Id)
+        formData.append('subCategoryLv2Id', 0)
         formData.append('productDescription', value)
         formData.append('attributeValue', JSON.stringify(attributeValue));
 
@@ -292,9 +295,9 @@ useEffect(()=>{
         formData.append('cashPrice', cashPrice)
         formData.append('categoryId', categoryId)
         formData.append('subCategoryId', subCategoryId)
-        formData.append('subCategoryLv2Id', subCategoryLv2Id)
+        formData.append('subCategoryLv2Id', 0)
         formData.append('productDescription', value)
-        formData.append('attributeValue', JSON.stringify(attributeValues));
+        formData.append('attributeValue', JSON.stringify(attributeValue));
         formData.append('oldAttributeValues', JSON.stringify(oldAttributeValues));
         formData.append('productImage', productImage)
         if (images.length > 0) {
@@ -348,7 +351,7 @@ useEffect(()=>{
         setView(false)
         setViewData('')
     }
-   console.log(attributeValues)
+    console.log(attributeValue)
     return (
         <div className={`w-[100%] h-[100%] flex px-3 justify-center items-center ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'}`}>
             <ToastContainer />
@@ -476,7 +479,7 @@ useEffect(()=>{
                                    'border-gray-400 bg-transparent' : 'border-gray-400'} rounded-md`} required>
                                     <option value=''>Select Sub Category</option>
                                     {!subCategoryLoading && subCategory?.map((item) => (
-                                        <option value={item.CategoryID}>{item.CategoryName}</option>
+                                        <option key={item.CategoryID} value={item.CategoryID}>{item.CategoryName}</option>
                                     ))}
                                 </select>
                             </div>
@@ -495,12 +498,12 @@ useEffect(()=>{
                                 </select>
                             </div> */}
                         </div>
-                        {subCategoryId && <div className='w-[100%] flex flex-col gap-x-5 gap-y-4 '>
+                        {subCategoryId && Array.isArray(attribute) && attribute.length > 0 && <div className='w-[100%] flex flex-col gap-x-5 gap-y-4 '>
                             <div className='w-[100%] mb-3 mt-3  text-2xl font-semibold  flex gap-1 items-center'>
                                 <FaCubes />  <span>Product Attributes</span>
                             </div>
                             <div className='w-[100%] grid grid-cols-3 gap-x-5 gap-y-4 justify-center items-center'>
-                                {attribute?.map((item) => (
+                                {Array.isArray(attribute) && attribute.length > 0 ? attribute.map((item) => (
                                     <div key={item.id} className='w-[100%] flex flex-col gap-2 justify-start items-start'>
                                         <label htmlFor="productName" className='text-lg capitalize font-semibold'>
                                             {item.attribute_name}  <span className='text-red-500'>*</span>
@@ -512,12 +515,14 @@ useEffect(()=>{
                                             className={`w-[100%] h-[55px] outline-none  p-2 border-[1px] ${theme === 'dark' ?
                                    'border-gray-400 bg-transparent' : 'border-gray-400'} rounded-md`} required >
                                             <option value=''>Select Attribute</option>
-                                            {item?.value?.map((item) => (
+                                            {Array.isArray(item?.value) && item.value.map((item) => (
                                                 <option key={item.valueId} value={item.valueId}>{item.value}</option>
                                             ))}
                                         </select>
                                     </div>
-                                ))}
+                                )) : <div className='w-[100%] flex justify-center items-center'>
+                                    <h1 className='text-2xl font-semibold'>No Attribute Found</h1>
+                                </div>}
                             </div>
                         </div>}
                         <div className='w-[100%] mb-3 mt-3  text-2xl font-semibold  flex gap-1 items-center'>

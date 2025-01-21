@@ -47,7 +47,7 @@ export default function Faq() {
       toast.success("FAQ Deleted Successfully");
       queryClient.invalidateQueries(['faqs']);
       setUsers(users.filter((user) => user.id !== id));
-    } catch (error) {
+    } catch (error) { 
       toast.error("Failed to delete FAQ");
     }
   };

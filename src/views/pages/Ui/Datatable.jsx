@@ -62,7 +62,7 @@ const DataTable = ({ data, onDelete, onView,view,title, onEdit,expand=false,edit
   const handleDeleteSelected = () => {
     selectedRows.forEach((row) => onDelete(row.CategoryID ? row : row.id));
     setSelectedRows([]);
-  };
+  };  
 
   const toggleRowExpansion = (row) => {
     setExpandedRows((prev) => {
@@ -127,7 +127,7 @@ if(isLoading){
                   onChange={handleSelectAll}
                 />
               </th>
-              {Object.keys(data[0] || {})?.filter(key => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID' && key !=="description" && key !=='id')?.map((key) => (
+              {Object.keys(data[0] || {})?.filter(key => key !== "answer" && key !== 'ParentCategoryID'&& key !=='shortdesc' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID' && key !=="description" && key !=='id')?.map((key) => (
                 <th
                   key={key}
                   onClick={() => handleSort(key)}
@@ -150,13 +150,17 @@ if(isLoading){
                       onChange={() => handleRowSelect(row)}
                     />
                   </td>
-                  {Object.entries(row)?.filter(([key]) => key !== "answer" && key !== 'ParentCategoryID' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID'&& key !=="description" && key !=='id')?.map(([key, value], i) => (
+                  {Object.entries(row)?.filter(([key]) => key !== "answer" && key !== 'ParentCategoryID' && key !=='shortdesc' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID'&& key !=="description" && key !=='id')?.map(([key, value], i) => (
                     <td key={i} className="p-2 border border-gray-200 items-center justify-center">
                       {key==="Image" || key==="image" ? 
                       <div className="w-[100%] h-[100%] flex items-center justify-center"> 
                       <img src={import.meta.env.VITE_API_URL+"/"+value} alt="image" className=" h-[100px] object-cover"/>
                       </div>
-                       : value?.length>100? value.substring(0, 100) + '...' : value}
+                       : value?.length>100? value.substring(0, 100) + '...' : key==='created_at' ? new Date(value).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                      }) : value }
                    
                     </td>
                   ))}

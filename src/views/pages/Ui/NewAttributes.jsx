@@ -8,6 +8,8 @@ export default function NewAttributes({
   attributeCount,
   index,
   attributeData,
+  number,
+  setNumber,
   setAttributeData
 }) {
   const theme=useSelector((state)=>state.theme)
@@ -28,10 +30,10 @@ export default function NewAttributes({
     });
   };
   
-  const handleRemoveAttribute = () => {
+  const handleRemoveAttribute = (num) => {
     if (attributeCount > 1) {
       setAttributeCount((prev) => prev - 1);
-  
+      setNumber((prev) => prev.filter((number) => number !== num))
       setAttributeData((prev) => {
         const updated = { ...prev };
         
@@ -121,7 +123,7 @@ export default function NewAttributes({
     
       </div>
       <div
-        onClick={handleRemoveAttribute}
+        onClick={()=>handleRemoveAttribute(number)}
         className="w-[20%] mt-[2.5rem] flex flex-col gap-2 justify-start items-start"
       >
         <button

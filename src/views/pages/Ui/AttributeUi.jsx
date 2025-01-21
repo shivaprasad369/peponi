@@ -9,13 +9,16 @@ export default function AttributeUi({
   setAttributeCount,
   attributeCount,
   index,
+  number,
   attributeData,
   setAttributeData,
-  isEdit
+  isEdit,
+  setNumber
 }) {
   const theme=useSelector((state)=>state.theme)
   const [count, setCount] = useState(2);
-const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
+
   const handleAddAttributeValue = () => {
     setCount((prev) => prev + 1);
     setAttributeData((prev) => {
@@ -38,25 +41,47 @@ const queryClient = useQueryClient()
     });
   };
 
-  const handleRemoveAttribute = async (id) => {
+  const handleRemoveAttribute = async (id, num) => {
+    const element = document.getElementById(num);
+  
+    if (!id) {
+      if (element) {
+        const inputs = element.querySelectorAll("input[required]");
+        inputs.forEach((input) => input.removeAttribute("required")); // Remove required attributes
+        element.style.display = "none"; // Hide element
+      }
+      setAttributeData((prev) => {
+        const updated = { ...prev };
+        delete updated[index];
+        return updated;
+      });
+      return;
+    }
+  
     try {
+      const confirm = window.confirm("Are you sure you want to delete this attribute?");
+      if (!confirm) return;
+  
       const response = await axios.delete(`${import.meta.env.VITE_API_URL}/attribute/${id}`);
       if (response.status === 200) {
-    
+        if (element) {
+          const inputs = element.querySelectorAll("input[required]");
+          inputs.forEach((input) => input.removeAttribute("required")); // Remove required attributes
+          element.style.display = "none"; // Hide element
+        }
         setAttributeData((prev) => {
           const updated = { ...prev };
-          delete updated[index]; 
+          delete updated[index];
           return updated;
         });
-        setAttributeCount((prev) => prev - 1);
-        queryClient.invalidateQueries({queryKey:['attribute']})
+        queryClient.invalidateQueries(["attribute"]);
       }
     } catch (error) {
-
       console.error("Delete attribute error:", error);
+      alert("Failed to delete attribute. Please try again.");
     }
   };
-
+  
   const handleAttributeName = (e) => {
     setAttributeData((prev) => ({
       ...prev,
@@ -82,7 +107,7 @@ const queryClient = useQueryClient()
   };
 
   return (
-    <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 flex gap-x-8 gap-y-4 justify-start items-start`}>
+    <div id={number} className={`w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 flex gap-x-8 gap-y-4 justify-start items-start`}>
       
       <div className="w-[50%] flex flex-col gap-2 justify-start items-start">
         <label htmlFor="attributeName" className="text-lg font-semibold">
@@ -108,6 +133,7 @@ const queryClient = useQueryClient()
               value={val.value || ""} 
               onChange={(e) => handleAttributeValue(e, valueIndex)}
               type="text"
+              id={`${attributeData[index]?.attribute_id}`}
               name={`attributeValue-${valueIndex}`}
               className={`w-[100%] h-[60px] outline-none p-2 border-[1px] ${theme === 'dark' ? 'border-gray-600 bg-[#1D222B]' : 'border-gray-400'} rounded-md`}
               required
@@ -130,8 +156,8 @@ const queryClient = useQueryClient()
 
       <div className="w-[20%] mt-[2.5rem] flex flex-col gap-2 justify-start items-start">
         <div
-          onClick={() => handleRemoveAttribute(attributeData[index]?.attribute_id)}
-          className={`bg-red-500 text-white px-3 py-2 text-md font-semibold`}
+          onClick={() => handleRemoveAttribute(attributeData[index]?.attribute_id, number)}
+          className={`bg-red-500 text-white cursor-pointer px-3 py-2 text-md font-semibold`}
         >
           <span>Remove Attribute</span>
         </div>

@@ -24,6 +24,7 @@ export default function Attribute() {
     const [isEdit, setIsEdit] = useState(false)
     const theme=useSelector((state)=>state.theme)
     const queryClient = useQueryClient()
+    const [number, setNumber] = useState([1])
     const {data:attributeD, isLoading:attributeLoading, isError:attributeError, refetch:attributeRefetch} = useQuery({
         queryKey:['attribute'],
         queryFn:async()=>{
@@ -53,7 +54,10 @@ console.log(attributeD)
     }, [subCategoryId])
     const handleNewAddAttribute = () => {
         setAttributeCount((prev) => prev + 1)
+        setNumber((prev) => [...prev, Number(attributeCount) + 1])
+
     }
+    console.log(number)
     const handleSubmit = async (e) => {
         e.preventDefault();
         const Attributes = Object.values(attributeData).map((item) => ({
@@ -75,7 +79,7 @@ console.log(attributeD)
               setCategoryId('')
               setSubCategoryId('')
               setSubCategoryLv2Id('')
-           
+           setNumber([0])
             }
           } else {
             toast.error('Please select all the fields'); 
@@ -94,6 +98,7 @@ console.log(attributeD)
         setCategoryId('')
         setSubCategoryId('')
         setSubCategoryLv2Id('')
+        setNumber([0])
     }
     const handleEdit=(value)=>{
        
@@ -103,6 +108,7 @@ console.log(attributeD)
         // setSubCategoryLv2Id(value.subcategorytwo)
         setAttributeData(value.attributes)
         setAttributeCount(value.attributes.length)
+        setNumber(value.attributes.map((item) => item.attribute_id))
         setIsEdit(true)
       }
       const handleEditSubmit = async (e) => {
@@ -129,6 +135,7 @@ console.log(attributeD)
                 setSubCategoryId('')
                 // setSubCategoryLv2Id('')
                 setIsEdit(false)
+                setNumber([0])
             }
           } catch (error) {
             toast.error(error.response.data.message || 'Something went wrong!')
@@ -192,10 +199,10 @@ console.log(attributeD)
                 <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">
                 <IoIosAddCircle /> <span>Attributes</span>
                 </div>
-                {Array.from({length: attributeCount}).map((_, index) => (
+                {number.map((number, index) => (
                     <>          
-             {isEdit ?  <AttributeUi  key={index} isEdit={isEdit} attributeData={attributeData} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/> 
-             : <NewAttributes key={index} isEdit={isEdit} attributeData={attributeData} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>}
+             {isEdit ?  <AttributeUi  key={number} isEdit={isEdit} number={number} attributeData={attributeData} setNumber={setNumber} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/> 
+             : <NewAttributes key={index} isEdit={isEdit} number={number} attributeData={attributeData} setNumber={setNumber} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>}
             </>
             ))}
                 <div onClick={handleNewAddAttribute} className={`${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-black'} cursor-pointer text-white  px-3 py-2 text-md font-semibold`}>
