@@ -23,7 +23,8 @@ export default function Attribute() {
     const [attributeCount, setAttributeCount] = useState(1)
     const [isEdit, setIsEdit] = useState(false)
     const theme=useSelector((state)=>state.theme)
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient()    
+    const [isCancel, setIsCancel] = useState(false)
     const [number, setNumber] = useState([1])
     const {data:attributeD, isLoading:attributeLoading, isError:attributeError, refetch:attributeRefetch} = useQuery({
         queryKey:['attribute'],
@@ -77,6 +78,7 @@ console.log(attributeD)
               setAttributeData([])
               setAttributeCount(1) 
               setCategoryId('')
+              setIsCancel(false)
               setSubCategoryId('')
               setSubCategoryLv2Id('')
            setNumber([0])
@@ -102,6 +104,7 @@ console.log(attributeD)
     }
     const handleEdit=(value)=>{
        
+        setIsCancel(true)
         window.scrollTo(0, 0);
         setCategoryId(value.CategoryID)
         setSubCategoryId(value.subcategory)
@@ -132,6 +135,7 @@ console.log(attributeD)
                 setAttributeData([])
                 setAttributeCount(1) 
                 setCategoryId('')
+                setIsCancel(false)
                 setSubCategoryId('')
                 // setSubCategoryLv2Id('')
                 setIsEdit(false)
@@ -149,7 +153,7 @@ console.log(attributeD)
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'>  Manage Attributes</h1>
         </div>
-        <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
+       {isCancel && <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
             <form onSubmit={isEdit ? handleEditSubmit : handleSubmit}  className='w-[100%]'>
                 <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">
                 <MdCategory /> <span>Category</span>
@@ -212,16 +216,22 @@ console.log(attributeD)
                     <button type='reset' onClick={handleReset} className='w-[100px] px-3 py-1 flex bg-[#fdfdfd] text-black border-[1px] border-gray-300 text-md font-semibold '>
                      ClearForm
                     </button>
+                    <div className='flex gap-2'>
+                    <button type='button' onClick={()=>setIsCancel(false)} className='w-[100px] px-4 py-2 text-white bg-[#000000] text-md '>
+                      Cancel
+                    </button>
                     <button type='submit' className='w-[100px] px-4 py-2 text-white bg-[#000000] text-md '>
                         {isEdit ? "Update" : "Add"}
                     </button>
+                    </div>
                 </div>
              
                 </div>
             </form>
-            </div>
-            {!attributeLoading &&
+            </div>}
+            {!attributeLoading && !isCancel &&
              <Attributetabel 
+             setIsCancel={setIsCancel}
              data={attributeD} 
              isLoading={attributeLoading} 
              isError={attributeError}

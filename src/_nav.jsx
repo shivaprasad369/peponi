@@ -71,6 +71,13 @@ const _nav = [
     icon:<RiLockPasswordFill className='nav-icon'/>
   },
   {
+    component: CNavItem,
+    name: "User Management",
+    to: '/admin/account/user',
+    // icon: <CIcon icon={cilLockLocked} customclassname="nav-icon" />,
+    icon:<RiLockPasswordFill className='nav-icon'/>
+  },
+  {
     component: CNavGroup,
     name: "Manage Products",
     icon:<MdOutlineDashboardCustomize className='nav-icon'/>,

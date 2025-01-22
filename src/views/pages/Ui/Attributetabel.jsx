@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, isLoading = false }) => {
+const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, isLoading = false, setIsCancel }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -63,6 +63,8 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
         theme === "dark" ? "bg-[#2e3442] text-white" : "bg-white text-gray-800"
       }`}
     >
+    
+
       {isEdit && (
         <div className="flex justify-end items-end mb-3">
           <button
@@ -75,8 +77,20 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
           </button>
         </div>
       )}
-      <div className=" pb-2  w-[100%] text-2xl tracking-wider font-semibold  mb-2 p-3  border-b-[1px] border-gray-300">
-      List of category
+      <div className="flex justify-between py-3 items-center px-3  border-b-[1px] border-gray-300">
+        <div className="  text-2xl tracking-wider font-semibold  ">
+        List of category
+        </div>
+        <div className="flex ">
+        <button
+          className={`bg-black text-white px-4 py-2 rounded-md ${
+            theme === "dark" ? "bg-[#212631] text-white" : "bg-gray-800 text-white"
+          }`}
+          onClick={() => setIsCancel(true)}
+        >
+          + Add New Attribute
+        </button>
+      </div>
       </div>
       {/* Search and Filter */}
       <div className="w-full flex p-3 flex-wrap gap-4 items-center justify-between mb-4">
@@ -110,7 +124,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
               } text-md`}
             >
               <th className="p-2 border w-[150px]">Category Name</th>
-              <th className="p-2 border w-[150px]">SubCategory 1</th>
+              <th className="p-2 border w-[150px]">SubCategory</th>
               {/* <th className="p-2 border w-[150px]">SubCategory 2</th> */}
               <th className="p-2 border ">Attributes</th>
               <th className="p-2 border w-[100px]">Actions</th>

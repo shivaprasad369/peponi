@@ -153,8 +153,11 @@ if(isLoading){
                   {Object.entries(row)?.filter(([key]) => key !== "answer" && key !== 'ParentCategoryID' && key !=='shortdesc' && key !=='CategoryID' && key !=='SubCategoryID' &&  key !=='SubCategoryLv2ID'&& key !=="description" && key !=='id')?.map(([key, value], i) => (
                     <td key={i} className="p-2 border border-gray-200 items-center justify-center">
                       {key==="Image" || key==="image" ? 
-                      <div className="w-[100%] h-[100%] flex items-center justify-center"> 
-                      <img src={import.meta.env.VITE_API_URL+"/"+value} alt="image" className=" h-[100px] object-cover"/>
+                      <div className="w-[100%] h-[100%] flex items-center justify-center">
+
+                      <div className="w-[5rem] h-[5rem] flex items-center justify-center"> 
+                      <img src={import.meta.env.VITE_API_URL+"/"+value} alt="image" className=" h-[100%] object-cover"/>
+                      </div>
                       </div>
                        : value?.length>100? value.substring(0, 100) + '...' : key==='created_at' ? new Date(value).toLocaleDateString('en-US', {
                         month: 'long',
