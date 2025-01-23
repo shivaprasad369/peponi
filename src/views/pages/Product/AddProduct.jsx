@@ -55,29 +55,30 @@ useEffect(() => {
         const categoryData = category.find(item => item.CategoryID === oldCategoryId)
         if (!categoryData) {
             setAttributeValues({})
-            setAttributeValue({})
+            setAttributeValue([])
+            setAttribute([])
         }
     }
 }, [category, loading, oldCategoryId])
 
 useEffect(() => {
     if (!subCategoryLoading && subCategory?.length > 0) {
-        const categoryData = subCategory.find(item => item.CategoryID === oldSubCategoryId)
-        if (!categoryData) {
+        const subCategoryData = subCategory.find(item => item.CategoryID === oldSubCategoryId)
+        if (!subCategoryData) {
             setAttributeValues({})
-            setAttributeValue({})
+            setAttributeValue([])
+            setAttribute([])
         }
     }
 }, [subCategory, subCategoryLoading, oldSubCategoryId])
-useEffect(()=>{
-    if(!subCategoryLv2Loading && subCategoryLv2?.length>0){
-        const categoryData = subCategoryLv2.find(item=>item.CategoryID===oldSubCategoryLv2Id)
-        if(!categoryData){
-            setAttributeValues({})
-        }
-    }
-},[subCategoryLv2,subCategoryLv2Loading])
 
+ useEffect(()=>{
+    if(subCategoryId!==oldSubCategoryId){
+        setAttributeValues({})
+        setAttributeValue([])
+        setAttribute([])
+    }
+ },[subCategoryId])
     const { data: product, isLoading, isError } = useQuery({
         queryKey: ['product'],
         queryFn: async () => {
@@ -353,7 +354,7 @@ useEffect(()=>{
         setView(false)
         setViewData('')
     }
-    console.log(attributeValue)
+
     return (
         <div className={`w-[100%] h-[100%] flex px-3 justify-center items-center ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'}`}>
             <ToastContainer />
