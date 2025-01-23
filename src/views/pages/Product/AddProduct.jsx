@@ -11,6 +11,7 @@ import ProductTable from '../Ui/ProductTabel'
 import View from '../Ui/View'
 import ProductImageList from '../Ui/ProductImageList'
 import { useSelector } from 'react-redux'
+import AttributesPage from './new'
 export default function AddProduct() {
     document.title = 'Add Product'
     const theme = useSelector((state)=>state.theme);
@@ -676,6 +677,7 @@ useEffect(()=>{
 
                 </View>
                 }
+                <AttributesPage />
             </div>
 
 

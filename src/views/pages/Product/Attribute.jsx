@@ -25,6 +25,7 @@ export default function Attribute() {
     const theme=useSelector((state)=>state.theme)
     const queryClient = useQueryClient()    
     const [isCancel, setIsCancel] = useState(false)
+    const [attributes, setAttributes] = useState([{ attributeName: "", value: [''] }]);
     const [number, setNumber] = useState([1])
     const {data:attributeD, isLoading:attributeLoading, isError:attributeError, refetch:attributeRefetch} = useQuery({
         queryKey:['attribute'],
@@ -39,7 +40,7 @@ export default function Attribute() {
             }
         }
     })
-console.log(attributeD)
+
     useEffect(() => {
         getCategory()
     }, [])
@@ -56,12 +57,15 @@ console.log(attributeD)
     const handleNewAddAttribute = () => {
         setAttributeCount((prev) => prev + 1)
         setNumber((prev) => [...prev, Number(attributeCount) + 1])
+        const newAttributes = [...attributes];
+        newAttributes.push({ attributeName: "", value: [''] });
+        setAttributes(newAttributes);
 
     }
-    console.log(number)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const Attributes = Object.values(attributeData).map((item) => ({
+        const Attributes = Object.values(attributes).map((item) => ({
           attributeName: item.attributeName,
           values: item.value,
         }));
@@ -76,6 +80,7 @@ console.log(attributeD)
               toast.success(response.data.message);
               queryClient.invalidateQueries({queryKey:['attribute']})
               setAttributeData([])
+              setAttributes([{ attributeName: "", value: [''] }]);
               setAttributeCount(1) 
               setCategoryId('')
               setIsCancel(false)
@@ -121,7 +126,6 @@ console.log(attributeD)
             attributeId: item.attribute_id,
             values: item.values
           }));
-          console.log(Attributes)
           try {
             const response = await axios.put(`${import.meta.env.VITE_API_URL}/attribute`,{
                 Attributes,
@@ -205,10 +209,12 @@ console.log(attributeD)
                 </div>
                 {number.map((number, index) => (
                     <>          
-             {isEdit ?  <AttributeUi  key={number} isEdit={isEdit} number={number} attributeData={attributeData} setNumber={setNumber} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/> 
-             : <NewAttributes key={index} isEdit={isEdit} number={number} attributeData={attributeData} setNumber={setNumber} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>}
+             {isEdit && <AttributeUi  key={number} isEdit={isEdit} number={number} attributeData={attributeData} setNumber={setNumber} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/> }
             </>
             ))}
+            {!isEdit &&attributes.map((attribute, index) => 
+                <NewAttributes key={index} isEdit={isEdit} attributes={attributes} setAttributes={setAttributes}  number={number} attributeData={attributeData} setNumber={setNumber} setAttributeData={setAttributeData} setAttributeCount={setAttributeCount} attributeCount={attributeCount} index={index}/>
+            )}
                 <div onClick={handleNewAddAttribute} className={`${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-black'} cursor-pointer text-white  px-3 py-2 text-md font-semibold`}>
                     <span>Add Attribute</span>
                 </div>
