@@ -677,7 +677,7 @@ useEffect(()=>{
 
                 </View>
                 }
-                <AttributesPage />
+                {/* <AttributesPage /> */}
             </div>
 
 
