@@ -29,7 +29,7 @@ export default function Attribute() {
     const [number, setNumber] = useState([1])
     const {data:attributeD, isLoading:attributeLoading, isError:attributeError, refetch:attributeRefetch} = useQuery({
         queryKey:['attribute'],
-        queryFn:async()=>{
+        queryFn:async()=>{  
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/attribute`)
                 if(response.status === 200){
