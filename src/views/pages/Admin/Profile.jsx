@@ -63,7 +63,7 @@ export default function Profile() {
         <FaUserAlt className='text-2xl font-semibold' />
         <h1 className='text-3xl font-normal'>Admin Profile</h1>
         </div>
-      <div className={`lg:w-[55%] h-fit p-4 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}>
+      <div className={`lg:w-[55%] border-t-[3px]  border-yellow-300  h-fit p-4 ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} flex flex-col gap-10 items-center justify-center`}>
         <form onSubmit={handleSubmit} className='flex flex-col w-[100%]  gap-3'>
             <div className="flex flex-col gap-1">
             <label htmlFor="name" className='font-bold'>Admin Name</label>

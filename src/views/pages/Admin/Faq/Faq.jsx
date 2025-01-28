@@ -109,7 +109,7 @@ export default function Faq() {
         <FaQuestionCircle className='text-3xl font-semibold' />
         <h1 className='text-3xl font-normal'>Manage FAQs</h1>
       </div>
-      <div className={`w-full mt-[-2rem] h-[100%] rounded-lg shadow-lg p-4 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}>
+      <div className={`w-full border-t-[3px]  border-yellow-300  mt-[-2rem] h-[100%] rounded-lg shadow-lg p-4 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}>
         {errors.question && <p className='text-red-500'>Question is required</p>}
         {errors.answer && <p className='text-red-500'>Answer is required</p>}
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col md:p-4 max-md:p-2 rounded'>
@@ -142,7 +142,7 @@ export default function Faq() {
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className={`w-full flex flex-col p-2 gap-2 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}
+              className={`w-full border-t-[3px]  border-yellow-300  flex flex-col p-2 gap-2 ${theme === 'dark' ? 'bg-[#2d3341]' : 'bg-white'}`}
             >
               <p className='text-start p-4 text-xl w-[100%] border-b border-gray-300 font-bold'>List of FAQs</p>
               <div className="w-[100%] flex flex-col gap-2 ">

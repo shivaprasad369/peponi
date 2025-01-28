@@ -363,7 +363,7 @@ useEffect(() => {
                     <IoMdCart className='text-4xl font-semibold' />
                     <h1 className='text-4xl font-normal'> Add Product</h1>
                 </div>
-                {show && <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442] text-white' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
+                {show && <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442] text-white' : 'bg-white text-[#252525]'} p-4 border-t-[3px]  border-yellow-300  flex flex-col  justify-center items-start`}>
                     <form ref={formRef} onSubmit={isEdit ? handleEditSubmit : handleSubmit} className='w-[100%]' encType='multipart/form-data'>
                         <div className='w-[100%] mb-3  text-2xl font-semibold  flex gap-1 items-center'>
                             <FaCubes />  <span>Product Details</span>

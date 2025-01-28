@@ -132,7 +132,7 @@ export default function FeatureProduct() {
         <FaList className="text-2xl font-semibold" />
         <h1 className="text-3xl font-normal">Manage Featured Products</h1>
       </div>
-      <div className={`w-[70%] ${theme === 'dark' ? 'bg-[#212631]' : 'bg-white text-black'} p-4 flex flex-col justify-center items-start`}>
+      <div className={`w-[70%] border-t-[3px]  border-yellow-300  ${theme === 'dark' ? 'bg-[#212631]' : 'bg-white text-black'} p-4 flex flex-col justify-center items-start`}>
         {/* Category Selection */}
         <div className="w-full flex flex-col gap-2 justify-start items-start">
           <label htmlFor="ProductName" className="text-xl font-semibold">
@@ -154,7 +154,7 @@ export default function FeatureProduct() {
             <label htmlFor="ProductName" className="text-xl mt-4 font-semibold">
               Products <span className="text-red-500">*</span>
         </label>
-        <div className={`w-full gap-4 mt-2 ${theme === 'dark' ? 'border-2 border-gray-700 text-white' : 'border-2 border-gray-300 text-black'} mb-4 flex justify-start items-center flex-wrap`}>
+        <div className={`w-full  gap-4 mt-2 ${theme === 'dark' ? 'border-2 border-gray-700 text-white' : 'border-2 border-gray-300 text-black'} mb-4 flex justify-start items-center flex-wrap`}>
           {/* DragDropContext for selectedItems */}
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="selectedItems">

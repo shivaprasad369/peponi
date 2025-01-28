@@ -80,7 +80,7 @@ if(isLoading){
   </div>
 }
   return (
-    <div className={`xl:p-4 max-xl:p-2   w-[100%] h-[100%] ${theme === 'dark' ? 'bg-[#2e3442] text-white' : 'bg-white text-gray-800 '} `}>
+    <div className={`xl:p-4 max-xl:p-2 border-t-[3px]  border-yellow-300   w-[100%] h-[100%] ${theme === 'dark' ? 'bg-[#2e3442] text-white' : 'bg-white text-gray-800 '} `}>
 
       {isEdit && <div onClick={()=>{window.location.reload()}} className="flex justify-end items-end mb-3">
         <button className={`bg-black text-white p-2 rounded-md ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-gray-200 text-black'}`}>+ Add New</button>

@@ -77,7 +77,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
           </button>
         </div>
       )}
-      <div className="flex justify-between py-3 items-center px-3  border-b-[1px] border-gray-300">
+      <div className="flex border-t-[3px]  border-t-yellow-300  justify-between py-3 items-center px-3  border-b-[1px] border-b-gray-300">
         <div className="  text-2xl tracking-wider font-semibold  ">
         List of category
         </div>
@@ -115,7 +115,7 @@ const Attributetabel = ({ data, onDelete, onEdit, edit = true, isEdit = false, i
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto p-3">
+      <div className="overflow-x-auto p-3 ">
         <table className="w-full table-auto border-collapse">
           <thead>
             <tr

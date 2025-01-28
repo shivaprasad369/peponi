@@ -146,7 +146,7 @@ export default function Subcategory() {
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'> Manage Subcategory</h1>
         </div>
-        <div className={`w-[80%] ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white'} mb-5 p-4 flex flex-col  justify-center items-start`}>
+        <div className={`w-[80%] border-t-[3px]  border-yellow-300  ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white'} mb-5 p-4 flex flex-col  justify-center items-start`}>
             <form onSubmit={isEdit ? handleUpdate : handleSubmit} ref={formref}  className='w-[100%]' encType='multipart/form-data'>
                 <div className='w-[100%] grid grid-cols-2 gap-x-10 gap-y-4 justify-center items-center'>
                     <div className='w-[100%] flex flex-col gap-2 justify-start items-start'>

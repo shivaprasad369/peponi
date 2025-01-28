@@ -44,7 +44,7 @@ export default function Adminlogin() {
       <div className='w-[100%] ml-[-1rem] flex justify-center items-center'><img src={img} alt="Peponi" className='h-[5rem]' />
       <img src={img2} alt="Peponi" className='h-[5rem]' />
       </div>
-      <div className='xl:w-[24%] lg:w-[30%] md:w-[40%] w-[90%]  flex-col h-fit p-[1rem] shadow-lg flex items-center justify-center bg-white rounded-lg'>
+      <div className='xl:w-[24%] lg:w-[30%] md:w-[40%] w-[90%] border-t-[3px]  border-yellow-300  flex-col h-fit p-[1rem] shadow-lg flex items-center justify-center bg-white rounded-lg'>
         <form  onSubmit={handleSubmit(onSubmit)} className='flex w-[100%] flex-col  justify-center items-center gap-3'>
           <span className='text-md font-semibold'>Log in to start your admin session.</span>
           {(errors.email || errors.password) && <span className='text-red-500'>Please fill all the fields</span>}

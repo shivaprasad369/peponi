@@ -7,7 +7,7 @@ export default function Faqs({question,answer,user,id,handleEdit,handleDelete}) 
   const [shows,setShows]=useState(false)
   const theme=useSelector(state=>state.theme)
   return (
-    <div className="w-[100%] flex flex-col gap-2 ">
+    <div className="w-[100%] flex flex-col  gap-2 ">
  <div className={`h-[100%] w-[100%] relative ${theme === 'dark' ? 'bg-[#1F242E]' : 'bg-slate-200'}`}>
       <div className='w-[100%] py-3 p-2 flex justify-center items-center'>
         <div className='w-[10%] flex justify-center items-center'>

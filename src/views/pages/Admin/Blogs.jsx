@@ -187,8 +187,8 @@ console.log(getValues('image'))
           <FaSitemap className='text-2xl font-semibold' />
           <h1 className='text-3xl font-normal'>Manage Blogs</h1>
         </div>
-        <div className={`w-full mb-5 h-full ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} rounded-md p-4`}>
-      <div className='flex justify-center w-[100%] items-center mt-4'>
+        <div className={`w-full border-t-[3px]  border-yellow-300  mb-5 h-full ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-white text-gray-800 '} rounded-md p-4`}>
+      <div className='flex  justify-center w-[100%] items-center mt-4'>
         <form className='flex w-[100%] flex-col ' onSubmit={handleSubmit(isEdit ? handleEditSubmit : onSubmit)} encType='multipart/form-data'>
            <div className='w-[100%] grid grid-cols-2 gap-4'>
             <div className='flex flex-col gap-2'>
@@ -282,4 +282,3 @@ console.log(getValues('image'))
     </div>
   )
 }
-

@@ -91,7 +91,7 @@ export default function NewAttributes({
   };
 
   return (
-    <div id={number} className={`w-[100%] ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 flex gap-x-8 gap-y-4 justify-start items-start`}>
+    <div id={number} className={`w-[100%]  ${theme === 'dark' ? 'bg-[#1D222B]' : 'bg-slate-200'} p-4 mt-2 flex gap-x-8 gap-y-4 justify-start items-start`}>
       <div className="w-[50%] flex flex-col gap-2 justify-start items-start">
         <label htmlFor="attributeName" className="text-lg font-semibold">
           Attribute <span className="text-red-500">*</span>

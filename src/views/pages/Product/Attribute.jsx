@@ -157,7 +157,7 @@ export default function Attribute() {
             <FaSitemap className='text-3xl font-semibold' />
             <h1 className='text-4xl font-normal'>  Manage Attributes</h1>
         </div>
-       {isCancel && <div className={`w-[100%] ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
+       {isCancel && <div className={`w-[100%] border-t-[3px]  border-yellow-300  ${theme === 'dark' ? 'bg-[#2E3442]' : 'bg-white text-[#252525]'} p-4 flex flex-col  justify-center items-start`}>
             <form onSubmit={isEdit ? handleEditSubmit : handleSubmit}  className='w-[100%]'>
                 <div className="w-[100%]  text-2xl font-semibold  flex gap-1 items-center">
                 <MdCategory /> <span>Category</span>

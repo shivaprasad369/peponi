@@ -40,7 +40,7 @@ const ProductTable = ({ data, onDelete, onView, onEdit,isView,setIsView,handleCl
   const totalPages = Math.ceil(filteredData?.length / rowsPerPage);
 
   return (
-    <div className={`p-4 ${theme === "dark" ? "bg-[#2e3442] text-white" : "bg-white text-gray-800"} w-[100%] `}>
+    <div className={`p-4 ${theme === "dark" ? "bg-[#2e3442] text-white" : "bg-white text-gray-800"} w-[100%] border-t-[3px]  border-yellow-300  `}>
         <div className="w-[100%] border-b-[1px] border-gray-300 pb-3 mb-3 flex justify-between items-center">
             <h1 className="text-2xl font-semibold">Product List</h1>
             {!show &&<button onClick={()=>handleClose()} className="bg-black text-white p-2 px-4 rounded-md">Add Product</button>}

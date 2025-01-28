@@ -71,10 +71,10 @@ export default function CMs() {
         <h1 className='text-3xl font-normal'>Manage CMS</h1>
       </div>
       <div className={`w-[100%] h-[100vh] flex justify-center items-center overflow-hidden ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '}`}>
-        <div className={`w-[100%] h-[100vh] flex flex-col  p-2 overflow-hidden ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '}`}>
+        <div className={`w-[100%]  h-[100vh] flex flex-col  p-2 overflow-hidden ${theme === 'dark' ? 'bg-[#212631] text-white' : 'bg-slate-200 text-gray-800 '}`}>
          
            <form onSubmit={handleSubmit} 
-          className={`w-[100%] h-fit flex-col  py-[2rem] px-[2rem] flex justify-center
+          className={`w-[100%] h-fit border-t-[3px]  border-yellow-300  flex-col  py-[2rem] px-[2rem] flex justify-center
            items-center overflow-hidden ${theme === 'dark' ? 'bg-[#2d3442] text-white' : 'bg-white text-gray-800 '}`}>
             <div className='w-[100%] mb-2 flex items-end justify-end'>
               <div onClick={()=>setShow(true)} className='bg-black text-white px-2 py-1 rounded-md cursor-pointer'><span>Add</span></div>

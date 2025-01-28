@@ -36,7 +36,7 @@ export default function ChangePassword() {
             <FaLock className='text-2xl font-semibold' />
             <h1 className='text-3xl font-normal'>Change Password</h1>
         </div>
-        <div className={`w-[100%] lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2a2f3a] text-white' : 'bg-white'} flex flex-col gap-4  py-[2rem] px-[1rem]  items-start justify-center`}>
+        <div className={`w-[100%] border-t-[3px]  border-yellow-300  lg:w-[45%] h-fit ${theme === 'dark' ? 'bg-[#2a2f3a] text-white' : 'bg-white'} flex flex-col gap-4  py-[2rem] px-[1rem]  items-start justify-center`}>
             <form className='flex w-[100%] flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
       
       {/* Old Password Field */}
